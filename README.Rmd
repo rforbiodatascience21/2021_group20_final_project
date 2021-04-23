@@ -1,6 +1,6 @@
 ---
 title: "R Notebook"
-output: github
+output: github_document
 ---
 
 # 2021_group20_final_project
