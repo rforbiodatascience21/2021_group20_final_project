@@ -11,13 +11,13 @@ library("tidyverse")
 
 
 # Load data ---------------------------------------------------------------
-x_clean <- read_tsv(file = "data/01_stjude_x.tsv")
-y_clean <- read_tsv(file = "data/01_stjude_y.tsv")
+x_clean <- read_tsv(file = "./data/01_stjude_x.tsv.gz")
+y_clean <- read_tsv(file = "./data/01_stjude_y.tsv.gz")
 
 # Wrangle data ------------------------------------------------------------
 stjude_clean <- as_tibble(cbind(y_clean,x_clean), rownames = NA)
 
 
 # Write data --------------------------------------------------------------
-write_tsv(x = my_data_clean,
-          file = "data/02_stjude_clean.tsv")
+write_tsv(x = stjude_clean,
+         file = "data/02_stjude_clean.tsv")
