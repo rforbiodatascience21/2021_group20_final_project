@@ -7,17 +7,17 @@ library("tidyverse")
 
 
 # Define functions --------------------------------------------------------
-source(file = "R/99_project_functions.R")
+#source(file = "R/99_project_functions.R")
 
 
 # Load data ---------------------------------------------------------------
-my_data <- read_tsv(file = "data/01_my_data.tsv")
-
+x_clean <- read_tsv(file = "data/01_stjude_x.tsv")
+y_clean <- read_tsv(file = "data/01_stjude_y.tsv")
 
 # Wrangle data ------------------------------------------------------------
-my_data_clean <- my_data # %>% ...
+stjude_clean <- as_tibble(cbind(y_clean,x_clean), rownames = NA)
 
 
 # Write data --------------------------------------------------------------
 write_tsv(x = my_data_clean,
-          file = "data/02_my_data_clean.tsv")
+          file = "data/02_stjude_clean.tsv")

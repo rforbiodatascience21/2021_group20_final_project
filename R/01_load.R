@@ -4,7 +4,6 @@ rm(list = ls())
 
 # Load libraries ----------------------------------------------------------
 library("tidyverse")
-library(stjudem)
 
 
 # Define functions --------------------------------------------------------
@@ -12,19 +11,17 @@ library(stjudem)
 
 
 # Load data ---------------------------------------------------------------
-data(stjude)
-summary(stjude)
+x <- read_tsv(file = "_raw/raw_stjude_x.tsv.gz")
+xrows <- read_tsv(file = "_raw/raw_stjude_xrows.tsv.gz")
+y <- read_tsv(file = "_raw/raw_stjude_y.tsv.gz")
 
 # Wrangle data ------------------------------------------------------------
-x <- stjude %>% 
-  pluck("expr") %>% 
+x <- t(x) %>% 
   as_tibble(rownames = NA)
-  
-y <- stjude %>% 
-  pluck("labels") %>% 
-  as_tibble()
-
-
+colnames(x) = t(xrows)
+x <- x %>% 
+  mutate(id = rownames(x)) %>% 
+  relocate(id)
 # Write data --------------------------------------------------------------
-write_tsv(x = x, file = "data/01_stjude_x.tsv")
-write_tsv(x = y, file = "data/01_stjude_y.tsv")
+write_tsv(x = x, file = "data/01_stjude_x.tsv.gz")
+write_tsv(x = y, file = "data/01_stjude_y.tsv.gz")
