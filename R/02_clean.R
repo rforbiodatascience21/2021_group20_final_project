@@ -20,4 +20,4 @@ stjude_clean <- as_tibble(cbind(y_clean,x_clean), rownames = NA)
 
 # Write data --------------------------------------------------------------
 write_tsv(x = stjude_clean,
-         file = "data/02_stjude_clean.tsv")
+         file = "data/02_stjude_clean.tsv.gz")

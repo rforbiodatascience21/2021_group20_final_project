@@ -7,17 +7,26 @@ library("tidyverse")
 
 
 # Define functions --------------------------------------------------------
-source(file = "R/99_project_functions.R")
+#source(file = "R/99_project_functions.R")
 
 
 # Load data ---------------------------------------------------------------
-my_data_clean <- read_tsv(file = "data/02_my_data_clean.tsv")
+stjude_clean <- read_tsv(file = "data/02_stjude_clean.tsv.gz")
 
 
 # Wrangle data ------------------------------------------------------------
-my_data_clean_aug <- my_data_clean # %>% ...
+stjude_clean <- stjude_clean %>%
+  separate(id, "-", into = "id_start")
 
+if (all(stjude_clean %>% pluck("value") == stjude_clean %>% pluck("id_start"))) {
+  print("everything ok")
+} else {
+  print("something wrong")
+}
+
+stjude_clean <- stjude_clean %>% 
+  select(-id_start)
 
 # Write data --------------------------------------------------------------
-write_tsv(x = my_data_clean_aug,
-          file = "data/03_my_data_clean_aug.tsv")
+write_tsv(x = stjude_clean,
+          file = "data/03_stjude_clean_aug.tsv.gz")
