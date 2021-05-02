@@ -31,7 +31,11 @@ paste("The clean dataset has", number_nas, "NAs")
 
 gene_pattern <- "\\w{1,2}\\d{5,6}"
 genes_clean <- genes_clean %>%
-  mutate(Gene_name = str_extract(Descriptions,gene_pattern))
+  mutate(Gene_name = str_extract(Descriptions, gene_pattern),
+         Gene_name = case_when(
+           is.na(Gene_name) == FALSE ~ Gene_name,
+           is.na(Gene_name) == TRUE & is.na(Descriptions) == FALSE ~ Descriptions,
+           is.na(Gene_name) == TRUE & is.na(Descriptions) == TRUE ~ paste("Probe ", `Probe set`)))
 
 
 # Write data --------------------------------------------------------------
