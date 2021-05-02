@@ -30,10 +30,7 @@ genes <- as_tibble(genes) %>%
   select(matches("Probe|Description")) %>%
   filter(!(is.na(`Probe set`) & is.na(Descriptions)))
 
-
-
-
-
 # Write data --------------------------------------------------------------
 write_tsv(x = x, file = "data/01_stjude_x.tsv.gz")
 write_tsv(x = genes, file = "data/01_stjude_genes.tsv.gz")
+

@@ -14,8 +14,8 @@ library("tidyverse")
 x_clean <- read_tsv(file = "./data/01_stjude_x.tsv.gz")
 genes_clean <- read_tsv(file = "./data/01_stjude_genes.tsv.gz")
 
-# Wrangle data ------------------------------------------------------------
 
+# Wrangle data ------------------------------------------------------------
 x_clean <- x_clean %>% 
   separate(col = "id", 
            into = c("leukemia", NA, NA, NA), 
@@ -29,6 +29,12 @@ number_nas <- x %>%
 
 paste("The clean dataset has", number_nas, "NAs")
 
-  # Write data --------------------------------------------------------------
+gene_pattern <- "\\w{1,2}\\d{5,6}"
+genes <- genes_clean %>%
+  mutate(Gene_name = str_extract(Descriptions,gene_pattern)) 
+
+
+# Write data --------------------------------------------------------------
 write_tsv(x = stjude_clean,
          file = "data/02_stjude_clean.tsv.gz")
+
