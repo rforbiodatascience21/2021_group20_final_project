@@ -23,7 +23,7 @@ x_clean <- x_clean %>%
   mutate(sampleID = row_number()) %>%
   relocate(sampleID)
 
-number_nas <- x %>% 
+number_nas <- x_clean %>% 
   summarise(NAs = sum(is.na(.)), .groups = "rowwise") %>% 
   sum()
 
@@ -35,6 +35,5 @@ genes_clean <- genes_clean %>%
 
 
 # Write data --------------------------------------------------------------
-write_tsv(x = stjude_clean,
+write_tsv(x = x_clean,
          file = "data/02_stjude_clean.tsv.gz")
-

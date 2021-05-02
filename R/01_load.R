@@ -33,4 +33,3 @@ genes <- as_tibble(genes) %>%
 # Write data --------------------------------------------------------------
 write_tsv(x = x, file = "data/01_stjude_x.tsv.gz")
 write_tsv(x = genes, file = "data/01_stjude_genes.tsv.gz")
-
