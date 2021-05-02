@@ -30,8 +30,8 @@ number_nas <- x %>%
 paste("The clean dataset has", number_nas, "NAs")
 
 gene_pattern <- "\\w{1,2}\\d{5,6}"
-genes <- genes_clean %>%
-  mutate(Gene_name = str_extract(Descriptions,gene_pattern)) 
+genes_clean <- genes_clean %>%
+  mutate(Gene_name = str_extract(Descriptions,gene_pattern))
 
 
 # Write data --------------------------------------------------------------
