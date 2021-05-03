@@ -15,8 +15,6 @@ st_jude <- read_tsv(file = "data/02_x_clean.tsv.gz")
 
 
 # Wrangle data ------------------------------------------------------------
-st_jude <- st_jude %>%
-  filter(leukemia %in% cancer_types)
 
 # Log transforming before t-test
 st_jude_log <- st_jude %>%
@@ -45,7 +43,7 @@ selected_genes <- st_jude_long_nested %>%
 
 
 st_jude_downsized <- st_jude %>% 
-  select(sampleID, leukemia, all_of(st_jude_long_nested2))
+  select(sampleID, leukemia, all_of(selected_genes))
 
 # Write data --------------------------------------------------------------
 write_tsv(x = st_jude_downsized,
