@@ -37,6 +37,16 @@ genes_clean <- genes_clean %>%
            is.na(Gene_name) == TRUE & is.na(Descriptions) == FALSE ~ Descriptions,
            is.na(Gene_name) == TRUE & is.na(Descriptions) == TRUE ~ paste("Probe ", `Probe set`)))
 
+genes_clean <- genes_clean %>%
+  group_by(Gene_name) %>%
+  mutate(count = n(),
+         count = case_when(
+           count != 1 ~ row_number()),
+         Gene_name = case_when(
+           count = is.na(count) ~ Gene_name,
+           count != is.na(count) ~ paste(Gene_name, "_", count, sep = ""))) %>%
+  ungroup() %>%
+  select(-count)
 
 # Write data --------------------------------------------------------------
 write_tsv(x = x_clean,
