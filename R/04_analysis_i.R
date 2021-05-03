@@ -7,7 +7,7 @@ library("tidyverse")
 
 
 # Define functions --------------------------------------------------------
-# source(file = "R/99_project_functions.R")
+source(file = "R/99_project_functions.R")
 
 
 # Load data ---------------------------------------------------------------
@@ -15,8 +15,10 @@ st_jude <- read_tsv(file = "data/03_stjude_clean_aug.tsv.gz")
 
 
 # Wrangle data ------------------------------------------------------------
+cancer_types <- c("BCR", "E2A", "Hyperdip", "MLL", "T", "TEL")
+
 st_jude <- st_jude %>%
-  filter(leukemia %in% c("BCR", "E2A", "Hyperdip", "MLL", "T", "TEL"))
+  filter(leukemia %in% cancer_types)
 
 # Log transforming before t-test
 st_jude_log <- st_jude %>%
@@ -30,10 +32,16 @@ st_jude_long_nested <- st_jude_log %>%
   nest() %>% 
   ungroup()
 
-# Idea that does not work for now
 st_jude_long_nested <- st_jude_long_nested %>% 
-  mutate(ttest = map(data, ~ apply_t_test(.x)))
+  mutate(ttest = map(data, ~ apply_t_test(.x))) %>% 
+  unnest_wider(ttest) %>% 
+  select(-data)
 
+# Not working
+# map(c(BCR, E2A, Hyperdip, MLL, T, TEL),
+#     ~ top_n(st_jude_long_nested, n = 40, wt = .x) %>% 
+#       pull(genes))
+    
 # Model data
 my_data_clean_aug %>% ...
 
