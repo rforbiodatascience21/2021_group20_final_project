@@ -11,19 +11,19 @@ library("tidyverse")
 
 
 # Load data ---------------------------------------------------------------
-stjude_clean <- read_tsv(file = "data/02_stjude_clean.tsv.gz")
+x_clean <- read_tsv(file = "data/02_x_clean.tsv.gz")
+
+gene_clean <- read_tsv(file = "data/02_genes_clean.tsv.gz")
+
+
 
 
 # Wrangle data ------------------------------------------------------------
-# This has become useless, has to be discussed
-# if (all(stjude_clean %>% pluck("value") == stjude_clean %>% pluck("id_start"))) {
-#   print("everything ok")
-# } else {
-#   print("something wrong")
-# }
 
-# stjude_clean <- stjude_clean %>%
-#   select(-id_start)
+stujde_aug <- x_clean %>%
+  filter(leukemia %in% c("BCR", "E2A", "Hyperdip", "MLL", "T", "TEL")) %>%
+  rename(!!! set_names(genes_clean$`Probe set`, genes_clean$Gene_name))
+
 
 # Write data --------------------------------------------------------------
 write_tsv(x = stjude_clean,
