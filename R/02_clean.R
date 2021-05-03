@@ -51,6 +51,6 @@ genes_clean <- genes_clean %>%
 
 # Write data --------------------------------------------------------------
 write_tsv(x = x_clean,
-         file = "data/02_x_clean.tsv.gz")
+          file = "data/02_x_clean.tsv.gz")
 write_tsv(x = genes_clean,
           file = "data/02_genes_clean.tsv.gz")
