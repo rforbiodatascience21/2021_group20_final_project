@@ -49,8 +49,11 @@ genes_clean <- genes_clean %>%
   select(-count)
 
 
+x_clean <- x_clean %>%
+  filter(leukemia %in% c("BCR", "E2A", "Hyperdip", "MLL", "T", "TEL")) %>%
+  rename(!!! set_names(genes_clean$`Probe set`, genes_clean$Gene_name))
+
+
 # Write data --------------------------------------------------------------
 write_tsv(x = x_clean,
           file = "data/02_x_clean.tsv.gz")
-write_tsv(x = genes_clean,
-          file = "data/02_genes_clean.tsv.gz")
