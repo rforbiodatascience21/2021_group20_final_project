@@ -7,11 +7,11 @@ library("tidyverse")
 
 
 # Define functions --------------------------------------------------------
-#ource(file = "R/99_project_functions.R")
+#source(file = "R/99_project_functions.R")
 
 
 # Load data ---------------------------------------------------------------
-st_jude <- read_tsv(file = "data/03_x_downsized.tsv.gz")
+st_jude <- read_tsv(file = "data/03_stjude_downsized.tsv.gz")
 
 
 # Wrangle data ------------------------------------------------------------

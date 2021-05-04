@@ -11,7 +11,7 @@ source(file = "R/99_project_functions.R")
 
 
 # Load data ---------------------------------------------------------------
-st_jude <- read_tsv(file = "data/02_x_clean.tsv.gz")
+st_jude <- read_tsv(file = "data/02_stjude_clean.tsv.gz")
 
 
 # Wrangle data ------------------------------------------------------------
@@ -47,4 +47,4 @@ st_jude_downsized <- st_jude %>%
 
 # Write data --------------------------------------------------------------
 write_tsv(x = st_jude_downsized,
-          file = "data/03_x_downsized.tsv.gz")
+          file = "data/03_stjude_downsized.tsv.gz")

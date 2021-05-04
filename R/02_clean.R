@@ -42,7 +42,7 @@ x_clean <- x_clean %>%
   separate(col = "id", 
            into = c("leukemia", NA, NA, NA), 
            sep = "-") %>%
-  mutate(sampleID = row_number()) %>%
+  mutate(sampleID = str_c("s_", row_number())) %>%
   relocate(sampleID) %>%
   filter(leukemia %in% c("BCR", "E2A", "Hyperdip", "MLL", "T", "TEL")) %>%
   rename(!!! set_names(genes_clean$`Probe set`, genes_clean$Gene_name))
@@ -56,4 +56,4 @@ print(str_c("The clean dataset has", number_nas, "NAs", sep = " "))
 
 # Write data --------------------------------------------------------------
 write_tsv(x = x_clean,
-          file = "data/02_x_clean.tsv.gz")
+          file = "data/02_stjude_clean.tsv.gz")
