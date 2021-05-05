@@ -19,10 +19,13 @@ st_jude_dwsz_long <- st_jude %>%
                names_to = "gene",
                values_to = "expression")
 
+# Plot trials -------------------------------------------------------------
+
+# Trials (too many genes...)
 st_jude_dwsz_long %>% 
   filter(leukemia == 'BCR') %>% 
-  ggplot() +
-  geom_point(aes(x = gene, y = expression, color = 'salmon')) +
+  ggplot(aes(x = gene, y = expression)) +
+  geom_point(colour = 'cyan4') +
   #scale_y_log10() +
   xlab("Genes") +
   ylab("Expression") +
@@ -30,12 +33,11 @@ st_jude_dwsz_long %>%
   theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
   theme(plot.title=element_text(hjust=0.5)) 
 
+#Does that plot give any info that makes sense?
 st_jude_dwsz_long %>% ggplot(mapping = aes(x = expression , color = leukemia)) +
-  geom_density()
+  geom_density() 
 
-
-
-#Choose one gene of interest (e.g: U31556_2)
+#Choose one gene of interest (e.g: U31556_2) - we did that in the Labs
 st_jude_dwsz %>% ggplot(mapping = aes(x = U31556_2, color = leukemia)) +
   geom_density()+
   labs(title = 'Densitogram of U31556_2, color=leukemia')
