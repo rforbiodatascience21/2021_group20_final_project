@@ -33,12 +33,14 @@ st_jude_long_nested <- st_jude_long_nested %>%
   unnest_wider(ttest) %>% 
   select(-data)
 
-selected_genes <- st_jude_long_nested %>% 
+top_40_genes <- st_jude_long_nested %>% 
   pivot_longer(cols = -gene,
                names_to = "leukemia",
                values_to = "ttest") %>% 
   group_by(leukemia) %>% 
-  top_n(n = 40, wt = abs(ttest)) %>%
+  top_n(n = 40, wt = abs(ttest))
+  
+selected_genes <- top_40_genes %>%
   pull(gene)
 
 
@@ -48,3 +50,6 @@ st_jude_downsized <- st_jude %>%
 # Write data --------------------------------------------------------------
 write_tsv(x = st_jude_downsized,
           file = "data/03_stjude_downsized.tsv.gz")
+
+write_tsv(x = top_40_genes,
+          file = "data/03_top_40_genes.tsv.gz")
