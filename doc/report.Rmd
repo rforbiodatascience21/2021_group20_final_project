@@ -1,0 +1,85 @@
+---
+title: "Leukemia microarray data from Yeoh et. al. (2002)"
+author: "Group 20: Mikkel Spallou Eriksen, Rut Mas de Les Valls, Anna Oliver Almirall, Paul Jeremy Simon, Elisa Catafal Tardos"
+date: "11/05/2021"
+output: 
+  ioslides_presentation:
+    logo: dtu.png
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Introduction
+
+- The paper from which the dataset is taken is "Classification, subtype discovery, and prediction of outcome in pediatric acute lymphoblastic leukemia by gene expression profiling" written by Yeoh et. al. in 2002 in Cell. 
+- The study is about pediatric acute lymphoblastic leukemia (ALL), a blood cancer with different subtypes.
+- Each subtype has specific characteristics including its response to treatment.
+- The goal of the project is to **assess whether there is a link between gene expression and the type of ALL**.
+
+
+## Materials
+
+- Raw files:
+  - raw_stjude_x.tsv.gz, a matrix of 12,625 rows (gene probes) and 327 columns (indivuals)
+  - raw_stjude_xrows.tsv.gz with the names of the probes
+  - raw_bcr.xls, a Excel spreadsheet from which we are interested in the first 2 columns giving the equivalence between the probe name and the gene name.
+
+
+- R with Tidyverse !
+
+## Methods
+- A regular expression to extract the gene name from the Excel column 
+```{r regexp, echo = TRUE, eval = FALSE}
+gene_pattern <- "\\w{1,2}\\d{5,6}"
+```
+
+## Methods
+- The stringr package to tidy the individuals' names
+```{r id_extraction, echo = TRUE, eval = FALSE}
+x_clean <- x_clean %>% 
+  separate(col = "id", 
+           into = c("leukemia", NA, NA, NA), 
+           sep = "-")
+```
+From
+```{r individual_name, echo = TRUE, eval = FALSE}
+"BCR-ABL-#7"
+```
+we extract
+```{r individual_extract,echo = TRUE, eval = FALSE}
+"BCR"
+```
+which is a type of ALL.
+
+## Methods
+- An apply_t_test function to perform selection of the best genes.
+```{r apply_ttest,echo = TRUE, eval = FALSE}
+apply_t_test = function(data){
+  cancer_types <- c("BCR", "E2A", "Hyperdip", "MLL", "T", "TEL")
+  my_list <- map(cancer_types,
+                 ~ t.test(data %>%
+                            filter(leukemia == .x) %>% 
+                            pull(expr_level),
+                          data %>%
+                            filter(leukemia != .x) %>% 
+                            pull(expr_level)) %>% 
+                   tidy() %>% 
+                   pull(statistic))
+  names(my_list) <- cancer_types
+  return(my_list)
+}
+```
+
+
+## Methods
+- The ggplot2 package to create different plot for the dataset
+```{r plots,echo = TRUE, eval = FALSE}
+# Example of plot
+```
+
+## Results
+- The plots
+
+## Discussion
