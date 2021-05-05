@@ -29,7 +29,8 @@ st_jude_long_nested <- st_jude_log %>%
   ungroup()
 
 st_jude_long_nested <- st_jude_long_nested %>% 
-  mutate(ttest = map(data, ~ apply_t_test(.x))) %>% 
+  mutate(ttest = map(data, 
+                     ~ apply_t_test(.x))) %>% 
   unnest_wider(ttest) %>% 
   select(-data)
 
@@ -38,7 +39,8 @@ top_40_genes <- st_jude_long_nested %>%
                names_to = "leukemia",
                values_to = "ttest") %>% 
   group_by(leukemia) %>% 
-  top_n(n = 40, wt = abs(ttest))
+  top_n(n = 40, 
+        wt = abs(ttest))
   
 selected_genes <- top_40_genes %>%
   pull(gene)

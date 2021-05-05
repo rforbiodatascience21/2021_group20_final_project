@@ -32,8 +32,6 @@ top_10_genes <- top_40_genes %>%
 gene_names <- top_10_genes %>%
    pull(gene)
 
-
-
 st_jude_scaled <- st_jude %>%
       mutate(sampleID = fct_inorder(sampleID),
              leukemia = fct_inorder(leukemia),
