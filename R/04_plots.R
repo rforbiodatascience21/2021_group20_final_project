@@ -4,9 +4,10 @@ rm(list = ls())
 
 # Load libraries ----------------------------------------------------------
 library("tidyverse")
+library("ggplot2")
 
 # Define functions --------------------------------------------------------
-source(file = "R/99_project_functions.R")
+#source(file = "R/99_project_functions.R")
 
 
 # Load data ---------------------------------------------------------------
@@ -35,8 +36,6 @@ top_10_genes <- top_40_genes %>%
 
 gene_names <- top_10_genes %>%
   pull(gene)
-
-
 
 st_jude_scaled <- st_jude_dwsz %>%
   mutate(sampleID = fct_inorder(sampleID),
@@ -75,6 +74,7 @@ st_jude_top_10 %>%
                                    hjust = 1)) +
   theme(plot.title=element_text(hjust=0.5)) 
 
+
 #Plot2 (trial with 6 plots together)
 st_jude_top_10 %>% 
   ggplot(aes(x = fct_reorder2(gene, desc(expr_level), rank), 
@@ -90,15 +90,18 @@ st_jude_top_10 %>%
   theme(axis.text.x = element_text(angle = 45, 
                                    hjust = 1)) +
   theme(plot.title=element_text(hjust=0.5))
-ggsave("/results/plot2.png", width = 30, height = 30, units = "cm")
+ggsave("plot2.png", width = 30, height = 30, units = "cm")
+
 
 #Plot3
 st_jude_dwsz_long %>% ggplot(mapping = aes(x = expression , 
                                            color = leukemia)) +
   geom_density() 
 
-#Choose one gene of interest (e.g: U31556_2) - can add this to shiny app
+
+#Plot4 - Choose one gene of interest (e.g: U31556_2) - can add this to shiny app
 st_jude_dwsz %>% ggplot(mapping = aes(x = U31556_2, 
                                       color = leukemia)) +
   geom_density()+
   labs(title = 'Densitogram of U31556_2, color=leukemia')
+
