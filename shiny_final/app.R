@@ -11,7 +11,6 @@ library(ggplot2)
 # Load data ---------------------------------------------------------------
 st_jude_dwsz <- read_tsv(file = "data/03_stjude_downsized.tsv.gz")
 gene_names <-  st_jude_dwsz %>% select(-sampleID,-leukemia) %>% colnames()
-leukemia <- 'leukemia'
 
 #Shiny App
 # Define UI for application that draws a histogram
@@ -23,8 +22,7 @@ ui <- fluidPage(theme = shinytheme("flatly"),
     # Sidebar with a slider input for number of bins 
     sidebarLayout(
         sidebarPanel(
-            selectInput('gene','Select the gene you want to be displayed', gene_names),
-            selectInput('leukemia','Select the gene you want to be displayed', leukemia)
+            selectInput('gene','Select the gene you want to be displayed', gene_names)
         ),
 
         # Show a plot of the generated distribution
@@ -39,11 +37,11 @@ server <- function(input, output) {
     
     output$genePlot <- renderPlot({
         ggplot(data = st_jude_dwsz,
-               mapping = aes_string(x = leukemia, 
+               mapping = aes_string(x = "leukemia", 
                              y = input$gene, 
-                             fill = input$leukemia)) +
+                             fill = "leukemia")) +
             geom_boxplot(alpha = 0.5) +
-            labs(#title = sprintf("Expression of %s", input$gene),
+            labs(title = sprintf("Expression of %s", input$gene),
                      x = "Leukemia type",
                      y = sprintf("%s expression",input$gene),
                      caption = "Data source: Yeoh et al. (2002)")+
@@ -52,6 +50,6 @@ server <- function(input, output) {
         })
 }
 
-
+    
 # Run the application 
 shinyApp(ui = ui, server = server)

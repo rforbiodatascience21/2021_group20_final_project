@@ -32,8 +32,8 @@ genes_clean <- genes_clean %>%
         count = case_when(
            count != 1 ~ row_number()),
         Gene_name = case_when(
-           is.na(count) ~ Gene_name,
-           !is.na(count) ~ str_c(Gene_name, "_", count, sep = ""))) %>%
+           is.na(count) ~ make.names(Gene_name),
+           !is.na(count) ~ make.names(str_c(Gene_name, "_", count, sep = "")))) %>%
   ungroup() %>%
   select(-count)
 
