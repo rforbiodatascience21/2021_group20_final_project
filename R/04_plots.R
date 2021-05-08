@@ -52,14 +52,11 @@ st_jude_top_10 <- st_jude_scaled %>%
             by = c("gene"))
 
 
-#Find p value to do a volcano plot
-
-
 
 # Plot trials -------------------------------------------------------------
 
 #Plot1
-st_jude_top_10 %>% 
+boxplot_top10 <- st_jude_top_10 %>% 
   #filter(leukemia == 'BCR') %>% 
   ggplot(aes(x = gene, 
              y = expr_level, 
@@ -76,7 +73,7 @@ st_jude_top_10 %>%
 
 
 #Plot2 (trial with 6 plots together)
-st_jude_top_10 %>% 
+point_top10_6 <- st_jude_top_10 %>% 
   ggplot(aes(x = fct_reorder2(gene, desc(expr_level), rank), 
              y = expr_level, 
              colour = ifelse(expr_level < 1,'red','green'))) +
@@ -90,18 +87,24 @@ st_jude_top_10 %>%
   theme(axis.text.x = element_text(angle = 45, 
                                    hjust = 1)) +
   theme(plot.title=element_text(hjust=0.5))
-ggsave("plot2.png", width = 30, height = 30, units = "cm")
 
 
 #Plot3
-st_jude_dwsz_long %>% ggplot(mapping = aes(x = expression , 
+density_all <- st_jude_dwsz_long %>% ggplot(mapping = aes(x = expression , 
                                            color = leukemia)) +
   geom_density() 
 
 
-#Plot4 - Choose one gene of interest (e.g: U31556_2) - can add this to shiny app
-st_jude_dwsz %>% ggplot(mapping = aes(x = U31556_2, 
-                                      color = leukemia)) +
-  geom_density()+
-  labs(title = 'Densitogram of U31556_2, color=leukemia')
+# Write data --------------------------------------------------------------
+ggsave(plot = boxplot_top10,
+       filename = "results/04_boxplot_top10.png")
+
+ggsave(plot = point_top10_6,
+       width = 30, 
+       height = 30, 
+       units = "cm",
+       filename = "results/04_point_top10_6.png")
+
+ggsave(plot = density_all,
+       filename = "results/04_density_all.png")
 
