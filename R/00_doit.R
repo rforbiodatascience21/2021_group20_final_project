@@ -6,6 +6,7 @@ source(file = "R/04_plots.R")
 source(file = "R/05_plots_heatmap.R")
 source(file = "R/06_kmeans.R")
 source(file = "R/07_pca.R")
-rmarkdown::render(input = "doc/report.Rmd", output_dir = "doc/")
-# ADD KNITR
+rmarkdown::render(input = "doc/presentation.Rmd", 
+                  output_dir = "doc/")
+
 # CREATE A FLOW CHART

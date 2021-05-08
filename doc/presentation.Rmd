@@ -1,14 +1,17 @@
 ---
 title: "Leukemia microarray data from Yeoh et. al. (2002)"
-author: "Group 20: Mikkel Spallou Eriksen, Rut Mas de Les Valls, Anna Oliver Almirall, Paul Jeremy Simon, Elisa Catafal Tardos"
+author: "Group 20: Mikkel Spallou Eriksen (s122455), Rut Mas de Les Valls (s203003), Anna Oliver Almirall (s202436), Paul Jeremy Simon (s202592), Elisa Catafal Tardos (s210415)"
 date: "11/05/2021"
 output: 
   ioslides_presentation:
     logo: dtu.png
+    df_print: tibble
+    widescreen: true
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(eval = FALSE)
+knitr::opts_knit$set(root.dir = '../')
 ```
 
 ## Introduction
@@ -31,31 +34,31 @@ knitr::opts_chunk$set(echo = FALSE)
 
 ## Methods
 - A regular expression to extract the gene name from the Excel column 
-```{r regexp, echo = TRUE, eval = FALSE}
+```{r regexp}
 gene_pattern <- "\\w{1,2}\\d{5,6}"
 ```
 
 ## Methods
 - The stringr package to tidy the individuals' names
-```{r id_extraction, echo = TRUE, eval = FALSE}
+```{r id_extraction}
 x_clean <- x_clean %>% 
   separate(col = "id", 
            into = c("leukemia", NA, NA, NA), 
            sep = "-")
 ```
 From
-```{r individual_name, echo = TRUE, eval = FALSE}
+```{r individual_name}
 "BCR-ABL-#7"
 ```
 we extract
-```{r individual_extract,echo = TRUE, eval = FALSE}
+```{r individual_extract}
 "BCR"
 ```
 which is a type of ALL.
 
 ## Methods
 - An apply_t_test function to perform selection of the best genes.
-```{r apply_ttest,echo = TRUE, eval = FALSE}
+```{r apply_ttest}
 apply_t_test = function(data){
   cancer_types <- c("BCR", "E2A", "Hyperdip", "MLL", "T", "TEL")
   my_list <- map(cancer_types,
@@ -75,11 +78,35 @@ apply_t_test = function(data){
 
 ## Methods
 - The ggplot2 package to create different plot for the dataset
-```{r plots,echo = TRUE, eval = FALSE}
+```{r plots}
 # Example of plot
 ```
 
 ## Results
-- The plots
+
+```{r kmeansimport, echo = FALSE, eval = TRUE, results = "hide", message = FALSE}
+source("./R/06_kmeans.R")
+```
+
+```{r kmeanstable, echo = FALSE, eval = TRUE, message = FALSE}
+clusters_count_top40
+```
+
+## Results
+### PCA
+
+## Results
+<figure>
+  <img src="../results/05_heatmap_1_pos.png" alt="Top 10 upregulated genes" width="750"/>
+  <figcaption><font size="3"> 
+    Expression of the 10 most upregulated genes for the 6 leukemia types 
+  </font></figcaption>
+</figure>
+
+## Results
+### Shiny app
+[Link](https://paul-simon.shinyapps.io/yeoh_plots/)
 
 ## Discussion
+- By genotyping a patient, it can be possible to to know which type of cancer he/she has and adapt the treatment
+- In the paper, the show that it works ... (***DETAILS***)

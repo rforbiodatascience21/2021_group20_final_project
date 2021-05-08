@@ -1,6 +1,6 @@
 # Clear workspace ---------------------------------------------------------
 rm(list = ls())
-
+set.seed(0)
 
 # Load libraries ----------------------------------------------------------
 library("tidyverse")
@@ -19,15 +19,19 @@ kclust_top40 <- top_40_genes %>%
   select(c(-sampleID, -leukemia)) %>% 
   kmeans(centers = 6)
 
-clusters_top40 <- augment(kclust_top40, top_40_genes) %>% 
+clusters_top40 <- kclust_top40 %>% 
+  augment(top_40_genes) %>% 
   select(leukemia, .cluster) %>% 
   arrange(.cluster)
 
 clusters_count_top40 <- clusters_top40 %>%
   group_by(.cluster, leukemia) %>% 
+  summarize(n = n())
+
+clusters_count_top40_filter <- clusters_top40 %>%
+  group_by(.cluster, leukemia) %>% 
   summarize(n = n()) %>% 
   filter(n > 5)
-
 
 kclust_all <- all_genes %>%
   as_tibble() %>% 
