@@ -1,0 +1,13 @@
+name: yeoh_plots
+title: Yeoh_plots
+username:
+account: paul-simon
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 4099919
+bundleId: 4574297
+url: https://paul-simon.shinyapps.io/yeoh_plots/
+when: 1620481001.60296
+lastSyncTime: 1620481001.60299
+asMultiple: FALSE
+asStatic: FALSE
