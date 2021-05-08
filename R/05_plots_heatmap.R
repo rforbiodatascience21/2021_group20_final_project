@@ -243,7 +243,11 @@ p3b <- st_jude_top_10 %>%
 # Write data --------------------------------------------------------------
 
 ggsave(plot = heatmap_1,
-      filename = "results/05_heatmap_1_pos.png")
+      filename = "results/05_heatmap_1_pos.png",
+      width = 30,
+      units = "cm")
 
 ggsave(plot = heatmap_2,
-       filename = "results/05_heatmap_2_top10.png")
+       filename = "results/05_heatmap_2_top10.png",
+       width = 30,
+       units = "cm")
