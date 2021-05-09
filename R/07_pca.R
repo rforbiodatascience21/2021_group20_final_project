@@ -6,7 +6,6 @@ rm(list = ls())
 library("tidyverse")
 library("broom")
 library("ggplot2")
-library("cowplot")
 
 
 # Load data ---------------------------------------------------------------
@@ -18,12 +17,12 @@ pca_fit_top_40 <- top_40_genes %>%
   select(where(is.numeric)) %>%
   prcomp(scale = TRUE)
 
-pca_fit_top_40 %>%
+top40_projection <- pca_fit_top_40 %>%
   augment(top_40_genes) %>% 
   ggplot(aes(.fittedPC1, .fittedPC2, color = leukemia)) + 
   geom_point()
 
-pca_fit_top_40 %>%
+top40_variance <- pca_fit_top_40 %>%
   tidy(matrix = "eigenvalues") %>%
   as_tibble() %>% 
   filter(PC < 11) %>%
@@ -41,12 +40,12 @@ pca_fit_all <- all_genes %>%
   select(where(is.numeric)) %>%
   prcomp(scale = TRUE)
 
-pca_fit_all %>%
+all_projection <- pca_fit_all %>%
   augment(all_genes) %>% 
   ggplot(aes(.fittedPC1, .fittedPC2, color = leukemia)) + 
   geom_point()
 
-pca_fit_all %>%
+all_variance <- pca_fit_all %>%
   tidy(matrix = "eigenvalues") %>%
   as_tibble() %>% 
   filter(PC < 11) %>%
@@ -58,3 +57,18 @@ pca_fit_all %>%
     expand = expansion(mult = c(0, 0.01))
   ) +
   theme_minimal_hgrid(12)
+
+
+# Save plots --------------------------------------------------------------
+
+ggsave(plot = top40_projection,
+       filename = "results/07_top40_projection.png")
+
+ggsave(plot = top40_variance,
+       filename = "results/07_top40_variance.png")
+
+ggsave(plot = all_projection,
+       filename = "results/07_all_projection.png")
+
+ggsave(plot = all_variance,
+       filename = "results/07_all_variance.png")

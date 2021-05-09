@@ -6,7 +6,6 @@ set.seed(0)
 library("tidyverse")
 library("broom")
 library("ggplot2")
-library("cowplot")
 
 
 # Load data ---------------------------------------------------------------
