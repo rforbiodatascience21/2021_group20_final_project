@@ -19,8 +19,8 @@ genes <- read_excel(path = "_raw/raw_bcr.xls")
 
 # Wrangle data ------------------------------------------------------------
 x <- t(x) %>% 
-  as_tibble(rownames = NA)
-colnames(x) = t(xrows)
+  as_tibble(rownames = NA) %>% 
+  rename_with(~ xrows %>% pull(value))
 
 x <- x %>% 
   mutate(id = rownames(x)) %>% 
