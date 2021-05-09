@@ -83,25 +83,27 @@ apply_t_test = function(data){
 ```
 
 ## Results
-
+### Kmeans with top 40 genes
 ```{r kmeansimport, echo = FALSE, eval = TRUE, results = "hide", message = FALSE}
-source("./R/06_kmeans.R")
+source("R/06_kmeans.R")
 ```
 
-```{r kmeanstable, echo = FALSE, eval = TRUE, message = FALSE}
-clusters_count_top40
+```{r kmeanstable, eval=TRUE, echo=FALSE, message=FALSE, paged.print=TRUE}
+clusters_top40
 ```
+
+## Results
+### Kmeans with top 40 genes
+
+
 
 ## Results
 ### PCA
 
 ## Results
-<figure>
-  <img src="../results/05_heatmap_1_pos.png" alt="Top 10 upregulated genes" width="750"/>
-  <figcaption><font size="3"> 
-    Expression of the 10 most upregulated genes for the 6 leukemia types 
-  </font></figcaption>
-</figure>
+```{r, echo=FALSE, out.width="70%", error=TRUE, eval=TRUE, fig.cap = "Heat map for the 10 most upregulated genes"}
+knitr::include_graphics(path = str_c(getwd(),"/results/05_heatmap_1_pos.png"))
+```
 
 ## Results
 ### Shiny app
