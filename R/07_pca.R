@@ -15,7 +15,8 @@ all_genes <- read_tsv(file = "./data/02_stjude_clean.tsv.gz")
 
 pca_fit_top_40 <- top_40_genes %>% 
   select(where(is.numeric)) %>%
-  prcomp(scale = TRUE)
+  scale() %>% 
+  prcomp()
 
 top40_projection <- pca_fit_top_40 %>%
   augment(top_40_genes) %>% 
@@ -38,7 +39,8 @@ top40_variance <- pca_fit_top_40 %>%
 
 pca_fit_all <- all_genes %>% 
   select(where(is.numeric)) %>%
-  prcomp(scale = TRUE)
+  scale() %>% 
+  prcomp()
 
 all_projection <- pca_fit_all %>%
   augment(all_genes) %>% 
