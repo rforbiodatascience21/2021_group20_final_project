@@ -82,7 +82,7 @@ p2 <- st_jude_top10 %>%
          legend.position = "none") 
 
 heatmap_1 <- p1+p2 + 
-   plot_annotation(title = "Top positively correlated genes with each individual leukemia class",
+   plot_annotation(title = "Top positively correlated genes with each individual leukemia type",
                    theme = theme(plot.title = element_text(hjust = 0.4)))
    
 
@@ -104,7 +104,7 @@ heatmap_3 <- st_jude_top10 %>%
                scales="free_x") +
    scale_y_discrete(position = "right") +
    theme_grey(base_size = 6.5) + 
-   labs(title = "Top positively correlated genes with each individual leukemia class") +
+   labs(title = "Top positively correlated genes with each individual leukemia type") +
    guides(fill = guide_colorbar(title.position = "top",
                                 title.hjust = 0.5,
                                 title.theme = element_text(size = 9))) +
@@ -190,7 +190,7 @@ p2b <- st_jude_top10 %>%
          legend.position = "none") 
 
 heatmap_2<- p1b+p2b +
-   plot_annotation(title = "Top 10 most correlated genes with each individual leukemia class",
+   plot_annotation(title = "Top 10 most correlated genes with each individual leukemia type",
                                     theme = theme(plot.title = element_text(hjust = 0.4)))
 
 
@@ -209,7 +209,7 @@ heatmap_3b <- st_jude_top10 %>%
                scales="free_x") +
    scale_y_discrete(position = "right") +
    theme_grey(base_size = 6.5) + 
-   labs(title = "Top 10 most correlated genes with each individual leukemia class") +
+   labs(title = "Top 10 most correlated genes with each individual leukemia type") +
    guides(fill = guide_colorbar(title.position = "top",
                                 title.hjust = 0.5,
                                 title.theme = element_text(size = 9))) +
