@@ -36,7 +36,7 @@ st_jude_long_nested <- st_jude_long_nested %>%
   unnest_wider(ttest) %>% 
   select(-data)
 
-top_40_genes <- st_jude_long_nested %>% 
+top40_genes <- st_jude_long_nested %>% 
   pivot_longer(cols = -gene,
                names_to = "leukemia",
                values_to = "ttest") %>% 
@@ -44,17 +44,17 @@ top_40_genes <- st_jude_long_nested %>%
   top_n(n = 40, 
         wt = abs(ttest))
   
-selected_genes <- top_40_genes %>%
+selected_genes <- top40_genes %>%
   pull(gene)
 
 
-st_jude_downsized <- st_jude %>% 
+st_jude_top40 <- st_jude %>% 
   select(sampleID, leukemia, all_of(selected_genes))
 
 
-#Top10 genes
+# Top 10 genes
 
-top_10_genes <- top_40_genes %>%
+top10_genes <- top40_genes %>%
   group_by(leukemia) %>% 
   top_n(n = 10, wt = ttest) %>% 
   ungroup() %>%
@@ -65,7 +65,7 @@ top_10_genes <- top_40_genes %>%
   select(gene, rank)
 
 
-gene_names <- top_10_genes %>%
+gene_names <- top10_genes %>%
   pull(gene)
 
 st_jude_scaled <- st_jude %>%
@@ -74,24 +74,25 @@ st_jude_scaled <- st_jude %>%
          across(c(-sampleID, -leukemia),
                 scale))
 
-st_jude_top_10 <- st_jude_scaled %>%
+st_jude_top10 <- st_jude_scaled %>%
   select(sampleID, leukemia, all_of(gene_names)) %>%
   pivot_longer(cols = c(-sampleID,-leukemia),
                names_to = "gene",
                values_to = "expr_level") %>%
-  left_join(top_10_genes,
+  left_join(top10_genes,
             by = c("gene"))
+
 
 # Write data --------------------------------------------------------------
 
-write_tsv(x = st_jude_downsized,
-          file = "/03_stjude_downsized.tsv.gz")
+write_tsv(x = st_jude_top40,
+          file = "data/03_stjude_top40.tsv.gz")
 
-write_tsv(x = st_jude_downsized,
-          file = "shiny_final/data/03_stjude_downsized.tsv.gz")
+write_tsv(x = st_jude_top40,
+          file = "shiny_final/data/03_stjude_top40.tsv.gz")
 
-write_tsv(x = top_40_genes,
-          file = "data/03_top_40_genes.tsv.gz")
+write_tsv(x = top40_genes,
+          file = "data/03_top40_genes.tsv.gz")
 
-write_tsv(x = st_jude_top_10,
-          file = "data/03_st_jude_top_10.tsv.gz")
+write_tsv(x = st_jude_top10,
+          file = "data/03_stjude_top10.tsv.gz")

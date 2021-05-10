@@ -9,8 +9,8 @@ library(shinythemes)
 library(ggplot2)
 
 # Load data ---------------------------------------------------------------
-st_jude_dwsz <- read_tsv(file = "data/03_stjude_downsized.tsv.gz")
-gene_names <-  st_jude_dwsz %>% select(-sampleID,-leukemia) %>% colnames()
+st_jude_top40 <- read_tsv(file = "data/03_stjude_top40.tsv.gz")
+gene_names <-  st_jude_top40 %>% select(-sampleID,-leukemia) %>% colnames()
 
 #Shiny App
 # Define UI for application that draws a histogram
@@ -42,7 +42,7 @@ server <- function(input, output) {
   
   output$genePlot <- renderPlot({
     if (input$plot_type == 'Boxplot') {
-      ggplot(data = st_jude_dwsz,
+      ggplot(data = st_jude_top40,
              mapping = aes_string(x = "leukemia", 
                                   y = input$gene, 
                                   fill = "leukemia")) +
@@ -55,7 +55,7 @@ server <- function(input, output) {
         theme(plot.title = element_text(hjust = 0.5, face = "bold"))
     }
     else if (input$plot_type == 'Densitogram'){
-      ggplot(data = st_jude_dwsz,
+      ggplot(data = st_jude_top40,
              mapping = aes_string(x = input$gene, 
                                   colour = "leukemia")) +
         geom_density(size=1.2) +
