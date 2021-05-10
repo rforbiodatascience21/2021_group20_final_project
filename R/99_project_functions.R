@@ -34,8 +34,7 @@ entropy <- function(input.vector){
            '*'(log(p, 2)))
 }
 
-# ENTROPY PER GROUP PER GENE
-# ENTROPY PER GROUP PER GENE
+# ENTROPY PER lEUKEMIA GROUP PER EACH GENE
 info.gain <- function(partition.by, categories){
   # Breakdown categories by partition.by
   #partition.by <- st_jude_log %>% pull(partition.by)
