@@ -6,52 +6,14 @@ rm(list = ls())
 library("tidyverse")
 library("ggplot2")
 
+
 # Define functions --------------------------------------------------------
 #source(file = "R/99_project_functions.R")
 
 
 # Load data ---------------------------------------------------------------
 st_jude_dwsz <- read_tsv(file = "data/03_stjude_downsized.tsv.gz")
-top_40_genes <- read_tsv(file = "data/03_top_40_genes.tsv.gz")
-
-# Wrangle data ------------------------------------------------------------
-
-#Just pivot longer all genes
-st_jude_dwsz_long <- st_jude_dwsz %>% 
-  pivot_longer(cols = c(-sampleID,-leukemia),
-               names_to = "gene",
-               values_to = "expression")
-
-# Got this code from 05 to select top 10
-top_10_genes <- top_40_genes %>%
-  group_by(leukemia) %>% 
-  top_n(n = 10, wt = ttest) %>% 
-  ungroup() %>%
-  mutate(rank = case_when(ttest != is.na(ttest) & ttest > 0 ~ str_c(leukemia, "_top10"))) %>%
-  arrange(rank) %>%
-  mutate(rank = case_when(rank != is.na(rank) ~ rank,
-                          rank = is.na(rank) ~ str_c("neg_corr")),
-         rank = fct_inorder(rank)) %>%
-  select(gene, rank)
-
-gene_names <- top_10_genes %>%
-  pull(gene)
-
-st_jude_scaled <- st_jude_dwsz %>%
-  mutate(sampleID = fct_inorder(sampleID),
-         leukemia = fct_inorder(leukemia),
-         across(c(-sampleID, -leukemia),
-                scale))
-
-st_jude_top_10 <- st_jude_scaled %>%
-  select(sampleID, leukemia, all_of(gene_names)) %>%
-  pivot_longer(cols = c(-sampleID,-leukemia),
-               names_to = "gene",
-               values_to = "expr_level") %>%
-  left_join(top_10_genes,
-            by = c("gene"))
-
-
+st_jude_top_10 <- read_tsv(file = "data/03_st_jude_top_10.tsv.gz")
 
 # Plot trials -------------------------------------------------------------
 
