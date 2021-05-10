@@ -14,12 +14,11 @@ library("broom")
 top_40_genes <- read_tsv(file = "./data/03_stjude_downsized.tsv.gz")
 
 
-
 # Model data --------------------------------------------------------------
+# Subset the data so that we don't have too many weights in the model
 top_40_genes <- top_40_genes %>% 
   select(2:100) %>% 
   mutate(leukemia = as_factor(leukemia))
-
 
 
 training.samples <- top_40_genes %>%
@@ -36,10 +35,3 @@ test.data <- test.data %>%
   mutate(predicted = model %>% predict(test.data))
 
 mean(test.data %>% pull(leukemia) == test.data %>% pull(predicted))
-
-# Plot models -------------------------------------------------------------
-
-
-
-# Save plots --------------------------------------------------------------
-
