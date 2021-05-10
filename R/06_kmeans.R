@@ -41,27 +41,46 @@ clusters_all <- kclust_all %>%
 
 # Plot models -------------------------------------------------------------
 kmeans_top40 <- clusters_top40 %>% 
-  ggplot(aes(cluster, counts, fill = leukemia)) +
+  ggplot(mapping = aes(x = cluster, 
+                       y = counts, 
+                       fill = leukemia)) +
   geom_bar(stat = "identity") +
-  theme_classic(base_size = 10) +
+  theme_classic() +
   labs(x = "Cluster ID", 
        y = "Number of samples",
-       title = "Samples assigned to each cluster") +
-  guides(fill = guide_legend(title = "Leukemia type")) +
-  theme(plot.title = element_text(size = 14,
+       title = "Samples assigned to each cluster (top 40)",
+       fill = "Leukemia type")
+
++
+
+  
+  
+  
+    theme(plot.title = element_text(size = 14,
                                   hjust = 0.5,
                                   vjust = 2),
         legend.text = element_text(size = 7))
 
+kmeans_top40
+
 kmeans_all <- clusters_all %>% 
-  ggplot(aes(cluster, counts, fill = leukemia)) +
+  ggplot(mapping = aes(x = cluster, 
+                       y = counts, 
+                       fill = leukemia)) +
   geom_bar(stat = "identity") +
-  labs(x = 'cluster', y = 'count')
+  theme_classic() +
+  labs(x = "Cluster ID", 
+       y = "Number of samples",
+       title = "Samples assigned to each cluster (all)",
+       fill = "Leukemia type")
  
 
 # Save plots and tables ---------------------------------------------------
 ggsave(plot = kmeans_top40,
-       filename = "results/06_kmeans_barplot_top40.png",
+       filename = "results/06_kmeans_barplot_top40.png")
+
+
+,
        width = 18,
        units = "cm")
 

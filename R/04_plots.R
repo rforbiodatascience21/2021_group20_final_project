@@ -50,9 +50,9 @@ point_top10_split <- st_jude_top10 %>%
   geom_point() +
   facet_wrap(. ~ leukemia, 
              ncol = 1) +
-  labs(title = "",
-      x = "Genes",
-      y = "Normalized expression") +
+  labs(title = "Expression of genes by leukemia type (top 10)",
+       x = "Genes",
+       y = "Normalized expression") +
   scale_color_manual(values = c("blue", "yellow"),
                      labels = c("Expression < 0", "Expression > 0")) +
   theme_classic() +
