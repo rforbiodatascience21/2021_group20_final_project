@@ -33,7 +33,9 @@ pca_plot_top40 <- pca_fit_top40 %>%
        title = 'PCA of top 40 genes',
        color = 'Leukemia type',
        shape = 'Leukemia type') +
-  theme_classic()
+  theme_classic() +
+  theme(plot.title = element_text(size = 14,
+                                  hjust = 0.5))
 
 var_plot_top40 <- pca_fit_top40 %>%
   tidy(matrix = "eigenvalues") %>%
@@ -44,8 +46,9 @@ var_plot_top40 <- pca_fit_top40 %>%
   scale_y_continuous(labels = percent_format(accuracy = 1L)) +
   labs(title = 'Variance explained by the first 10 PC (top 40 genes)',
        y = 'Variance explained') +
-  theme_classic()
-
+  theme_classic() +
+  theme(plot.title = element_text(size = 14,
+                                  hjust = 0.5))
 
 # All genes
 pca_fit_all <- st_jude_all %>% 
@@ -65,9 +68,10 @@ pca_plot_all <- pca_fit_all %>%
        title = 'PCA of all genes',
        color = 'Leukemia type',
        shape = 'Leukemia type') +
-  theme_classic()
+  theme_classic() +
+  theme(plot.title = element_text(size = 14,
+                                  hjust = 0.5))
 
-pca_plot_all
 
 var_plot_all <- pca_fit_all %>%
   tidy(matrix = "eigenvalues") %>%
@@ -78,9 +82,10 @@ var_plot_all <- pca_fit_all %>%
   scale_y_continuous(labels = percent_format(accuracy = 1L)) +
   labs(title = 'Variance explained by the first 10 PC (all genes)',
        y = 'Variance explained') +
-  theme_classic()
+  theme_classic() +
+  theme(plot.title = element_text(size = 14,
+                                  hjust = 0.5))
 
-var_plot_all
 
 
 # Save plots --------------------------------------------------------------
