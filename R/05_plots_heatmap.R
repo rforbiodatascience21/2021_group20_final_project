@@ -12,7 +12,7 @@ library("patchwork")
 
 
 # Load data ---------------------------------------------------------------
-st_jude_top10 <- read_tsv(file = "data/03_st_jude_top10.tsv.gz")
+st_jude_top10 <- read_tsv(file = "data/03_stjude_top10.tsv.gz")
 
 
 # Wrangle data ------------------------------------------------------------

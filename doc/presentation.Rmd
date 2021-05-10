@@ -124,56 +124,56 @@ knitr::include_graphics(path = "../results/06_kmeans_barplot_top40.png")
 
 ## Results
 ### PCA with all genes
-```{r pcaprojectionall, out.width="60%"}
+```{r pcaprojectionall, out.width="45%"}
 knitr::include_graphics(path = "../results/07_pca_all.png")
 ```
 
 
 ## Results
 ### PCA with all genes
-```{r pcavariancenall, out.width="60%"}
+```{r pcavariancenall, out.width="45%"}
 knitr::include_graphics(path = "../results/07_pca_var_all.png")
 ```
 
 
 ## Results
 ### PCA with top 40 genes
-```{r pcaprojectiontop, out.width="60%"}
+```{r pcaprojectiontop, out.width="45%"}
 knitr::include_graphics(path = "../results/07_pca_top40.png")
 ```
 
 
 ## Results
 ### PCA with top 40 genes
-```{r pcavariancetop, out.width="60%"}
+```{r pcavariancetop, out.width="45%"}
 knitr::include_graphics(path = "../results/07_pca_var_top40.png")
 ```
 
 
 ## Results
 ### Heatmap
-```{r heatmap1, out.width="95%"}
+```{r heatmap1, out.width="75%"}
 knitr::include_graphics(path = "../results/05_heatmap_1_pos.png")
 ```
 
 
 ## Results
 ### Heatmap
-```{r heatmap2, out.width="95%"}
+```{r heatmap2, out.width="75%"}
 knitr::include_graphics(path = "../results/05_heatmap_2_top10.png")
 ```
 
 
 ## Results
 ### Heatmap
-```{r heatmap3, out.width="95%"}
+```{r heatmap3, out.width="75%"}
 knitr::include_graphics(path = "../results/05_heatmap_3_global_pos.png")
 ```
 
 
 ## Results
 ### Heatmap
-```{r heatmap4, out.width="95%"}
+```{r heatmap4, out.width="75%"}
 knitr::include_graphics(path = "../results/05_heatmap_4_global_top10.png")
 ```
 
