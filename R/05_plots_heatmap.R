@@ -14,7 +14,9 @@ library("patchwork")
 # Load data ---------------------------------------------------------------
 st_jude_top_10 <- read_tsv(file = "data/03_st_jude_top_10.tsv.gz")
 
-## Plots positively-correlated genes
+
+# Wrangle data ------------------------------------------------------------
+## Plots for positively-correlated genes
 
 p1 <- st_jude_top_10 %>% 
    filter(leukemia %in% c("E2A", "MLL", "TEL"), 
@@ -79,7 +81,10 @@ p2 <- st_jude_top_10 %>%
                                    face = "bold"),
          legend.position = "none") 
 
-heatmap_1 <- p1+p2  
+heatmap_1 <- p1+p2 + 
+   plot_annotation(title = "Top positively correlated genes with each individual leukemia class",
+                   theme = theme(plot.title = element_text(hjust = 0.3)))
+   
 
 
 
@@ -95,14 +100,18 @@ heatmap_3 <- st_jude_top_10 %>%
                         limits = c(-3.7, 6.9),
                         name = "Expression level") +
    facet_grid( ~ leukemia, 
-               space="free", 
+               space="free",
                scales="free_x") +
    scale_y_discrete(position = "right") +
    theme_grey(base_size = 6.5) + 
+   labs(title = "Top positively correlated genes with each individual leukemia class") +
    guides(fill = guide_colorbar(title.position = "top",
                                 title.hjust = 0.5,
                                 title.theme = element_text(size = 9))) +
-   theme(axis.text.x = element_blank(),
+   theme(plot.title = element_text(size = 14,
+                              hjust = 0.5,
+                              vjust = 2),
+         axis.text.x = element_blank(),
          axis.title  = element_blank(),
          axis.ticks = element_blank(),
          panel.border = element_blank(),
@@ -118,7 +127,7 @@ heatmap_3 <- st_jude_top_10 %>%
 
 
 
-#### Plots all top 10 genes
+## Plots for all top 10 genes
 
 p1b <- st_jude_top_10 %>% 
    filter(leukemia %in% c("E2A", "MLL", "TEL"), 
@@ -180,7 +189,9 @@ p2b <- st_jude_top_10 %>%
                                    face = "bold"),
          legend.position = "none") 
 
-heatmap_2<- p1b+p2b 
+heatmap_2<- p1b+p2b +
+   plot_annotation(title = "Top 10 most correlated genes with each individual leukemia class",
+                                    theme = theme(plot.title = element_text(hjust = 0.3)))
 
 
 heatmap_3b <- st_jude_top_10 %>% 
@@ -198,10 +209,14 @@ heatmap_3b <- st_jude_top_10 %>%
                scales="free_x") +
    scale_y_discrete(position = "right") +
    theme_grey(base_size = 6.5) + 
+   labs(title = "Top 10 most correlated genes with each individual leukemia class") +
    guides(fill = guide_colorbar(title.position = "top",
                                 title.hjust = 0.5,
                                 title.theme = element_text(size = 9))) +
-   theme(axis.text.x = element_blank(),
+   theme(plot.title = element_text(size = 14,
+                                   hjust = 0.5,
+                                   vjust = 2),
+         axis.text.x = element_blank(),
          axis.title  = element_blank(),
          axis.ticks = element_blank(),
          panel.border = element_blank(),
