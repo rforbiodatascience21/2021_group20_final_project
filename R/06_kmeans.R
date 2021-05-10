@@ -23,7 +23,8 @@ clusters_top40 <- kclust_top40 %>%
   augment(st_jude_top40) %>% 
   select(.cluster, leukemia) %>% 
   group_by(.cluster, leukemia) %>% 
-  count
+  count %>% 
+  rename(cluster = .cluster, counts = n)
 
 set.seed(20)
 kclust_all <- st_jude_all %>%
@@ -34,17 +35,18 @@ clusters_all <- kclust_all %>%
   augment(st_jude_all) %>% 
   select(.cluster, leukemia) %>% 
   group_by(.cluster, leukemia) %>% 
-  count
+  count %>% 
+  rename(cluster = .cluster, counts = n)
 
 
 # Plot models -------------------------------------------------------------
 kmeans_top40 <- clusters_top40 %>% 
-  ggplot(aes(.cluster, n, fill = leukemia)) +
+  ggplot(aes(cluster, counts, fill = leukemia)) +
   geom_bar(stat = "identity") +
   labs(x = 'cluster', y = 'count')
 
 kmeans_all <- clusters_all %>% 
-  ggplot(aes(.cluster, n, fill = leukemia)) +
+  ggplot(aes(cluster, counts, fill = leukemia)) +
   geom_bar(stat = "identity") +
   labs(x = 'cluster', y = 'count')
  
