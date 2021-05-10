@@ -11,7 +11,7 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(eval = FALSE)
+knitr::opts_chunk$set(echo = FALSE)
 knitr::opts_knit$set(root.dir = '../')
 ```
 
@@ -26,40 +26,50 @@ knitr::opts_knit$set(root.dir = '../')
 ## Materials
 
 - Raw files:
-  - raw_stjude_x.tsv.gz, a matrix of 12,625 rows (gene probes) and 327 columns (indivuals)
-  - raw_stjude_xrows.tsv.gz with the names of the probes
+  - raw_stjude_x.tsv.gz, a matrix of 12,625 rows (gene probes) and 327 columns (indivuals);
+  - raw_stjude_xrows.tsv.gz with the names of the probes;
   - raw_bcr.xls, a Excel spreadsheet from which we are interested in the first 2 columns giving the equivalence between the probe name and the gene name.
 
 
 - R with Tidyverse !
 
 ## Methods
+### Outline of the project
+
+```{r outline}
+# Here include the flow chart
+```
+
+
+## Methods
 - A regular expression to extract the gene name from the Excel column 
-```{r regexp}
+```{r regexp, echo=TRUE, eval=FALSE}
 gene_pattern <- "\\w{1,2}\\d{5,6}"
 ```
 
+
 ## Methods
 - The stringr package to tidy the individuals' names
-```{r id_extraction}
+```{r id_extraction, echo=TRUE, eval=FALSE}
 x_clean <- x_clean %>% 
   separate(col = "id", 
-           into = c("leukemia", NA, NA, NA), 
+           into = c("leukemia"), 
            sep = "-")
 ```
 From
-```{r individual_name}
+```{r individual_name, echo=TRUE, eval=FALSE}
 "BCR-ABL-#7"
 ```
 we extract
-```{r individual_extract}
+```{r individual_extract, echo=TRUE, eval=FALSE}
 "BCR"
 ```
 which is a type of ALL.
 
+
 ## Methods
 - An apply_t_test function to perform selection of the best genes.
-```{r apply_ttest}
+```{r apply_ttest, echo=TRUE, eval=FALSE}
 apply_t_test = function(data){
   cancer_types <- c("BCR", "E2A", "Hyperdip", "MLL", "T", "TEL")
   my_list <- map(cancer_types,
@@ -79,40 +89,105 @@ apply_t_test = function(data){
 
 ## Methods
 - The ggplot2 package to create different plot for the dataset
-```{r plots}
+```{r plots, echo=TRUE, eval=FALSE}
 # Example of plot
 ```
 
+
 ## Results
-### Kmeans with top 40 genes
-```{r kmeansimport, echo = FALSE, eval = TRUE, results = "hide", message = FALSE}
+### Kmeans with all genes
+```{r kmeansimport, results = "hide", message = FALSE}
 source("R/06_kmeans.R")
 ```
 
-```{r kmeanstable, eval=TRUE, echo=FALSE, message=FALSE, paged.print=TRUE}
+```{r kmeanstableall, message=FALSE}
+clusters_all
+```
+
+## Results
+### Kmeans with all genes
+```{r kmeansplotall, out.width="80%"}
+knitr::include_graphics((normalizePath("results/06_all_clusters.png")))
+```
+
+
+## Results
+### Kmeans with top 40 genes
+```{r kmeanstable40, eval=TRUE}
 clusters_top40
 ```
 
 ## Results
 ### Kmeans with top 40 genes
-
+```{r kmeansplot40, out.width="80%"}
+knitr::include_graphics((normalizePath("results/06_top40_clusters.png")))
+```
 
 
 ## Results
 ### PCA
+```{r pcaprojectionall, out.width="100%"}
+knitr::include_graphics((normalizePath("results/07_all_projection.png")))
+```
+
 
 ## Results
-```{r, echo=FALSE, out.width="70%", error=TRUE, eval=TRUE, fig.cap = "Heat map for the 10 most upregulated genes"}
+### PCA
+```{r pcavariancenall, out.width="100%"}
+knitr::include_graphics((normalizePath("results/07_all_variance.png")))
+```
+
+
+## Results
+### PCA
+```{r pcaprojectiontop, out.width="100%"}
+knitr::include_graphics((normalizePath("results/07_top40_projection.png")))
+```
+
+
+## Results
+### PCA
+```{r pcavariancetop, out.width="100%"}
+knitr::include_graphics((normalizePath("results/07_top40_variance.png")))
+```
+
+
+## Results
+### Heatmap
+```{r heatmap1, out.width="95%"}
 knitr::include_graphics((normalizePath("results/05_heatmap_1_pos.png")))
 ```
 
----
-```{r, echo = FALSE, eval = TRUE}
-knitr::include_app("https://paul-simon.shinyapps.io/yeoh_plots/", height = "10000px")
+
+## Results
+### Heatmap
+```{r heatmap2, out.width="95%"}
+knitr::include_graphics((normalizePath("results/05_heatmap_2_top10.png")))
 ```
 
-[Link](https://paul-simon.shinyapps.io/yeoh_plots/)
+
+## Results
+### Heatmap
+```{r heatmap3, out.width="95%"}
+knitr::include_graphics((normalizePath("results/05_heatmap_3_global_pos.png")))
+```
+
+
+## Results
+### Heatmap
+```{r heatmap4, out.width="95%"}
+knitr::include_graphics((normalizePath("results/05_heatmap_4_global_top10.png")))
+```
+
+
+---
+```{r shinyapp}
+knitr::include_app("https://paul-simon.shinyapps.io/yeoh_plots/")
+```
+
+[Alternatively, the link](https://paul-simon.shinyapps.io/yeoh_plots/)
+
 
 ## Discussion
-- By genotyping a patient, it can be possible to to know which type of cancer he/she has and adapt the treatment
-- In the paper, the show that it works ... (***DETAILS***)
+- By genotyping a patient, it can be possible to to know which type of cancer he/she has and adapt the treatment.
+- In the paper, the results of the microarray are compared to RNA levels from RT-PCR and they show that there is high correlation between the two.
