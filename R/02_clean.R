@@ -20,22 +20,26 @@ genes_clean <- read_tsv(file = "./data/01_stjude_genes.tsv.gz")
 # Clean gene names
 gene_pattern <- "\\w{1,2}\\d{5,6}"
 
-genes_clean <- genes_clean %>%
-  rename("Probe_set" = `Probe set`) %>% 
+genes_clean <- genes_clean %>% 
+  rename("Probe_set" = `Probe set`) %>%
   mutate(Gene_name = str_extract(Descriptions, gene_pattern),
          Gene_name = case_when(
            !is.na(Gene_name) ~ Gene_name,
            is.na(Gene_name) & !is.na(Descriptions) ~ Descriptions,
-           is.na(Gene_name) & is.na(Descriptions) ~ str_c("Probe ", Probe_set))) %>%
+           is.na(Gene_name) & is.na(Descriptions) ~ str_c("Probe ", Probe_set)),
+         Gene_name = str_replace_all(Gene_name, " ", "_")) %>%
   group_by(Gene_name) %>%
   mutate(count = n(),
         count = case_when(
            count != 1 ~ row_number()),
         Gene_name = case_when(
-           is.na(count) ~ make.names(Gene_name),
-           !is.na(count) ~ make.names(str_c(Gene_name, "_", count, sep = "")))) %>%
+           is.na(count) ~ Gene_name,
+           !is.na(count) ~ str_c(Gene_name, "_", count, sep = ""))) %>%
   ungroup() %>%
   select(-count)
+
+genes_clean <- genes_clean %>%
+  mutate(Gene_name = make.names(Gene_name))
 
 
 # Clean x
