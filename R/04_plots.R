@@ -32,19 +32,24 @@ boxplot_top10 <- st_jude_top10 %>%
   labs(title = "Boxplot of top 10 genes for each leukemia",
        x = "Genes",
        y = "Expression") +
-  guides(color=guide_legend(title="Leukemia type")) +
+  guides(color = guide_legend(title = "Leukemia type")) +
   theme_classic() +
   theme(axis.text.x = element_text(angle = 45, 
                                    hjust = 1)) +
-  theme(plot.title=element_text(hjust=0.5)) 
+  theme(plot.title=element_text(hjust = 0.5)) 
 
 
 point_top10_split <- st_jude_top10 %>% 
-  ggplot(aes(x = fct_reorder2(gene, desc(expr_level), rank), 
+  ggplot(aes(x = fct_reorder2(gene, 
+                              desc(expr_level), 
+                              rank), 
              y = expr_level, 
-             colour = ifelse(expr_level < 0, "blue", "yellow"))) +
+             colour = if_else(expr_level < 0, 
+                             true = "blue", 
+                             false = "yellow"))) +
   geom_point() +
-  facet_wrap(. ~ leukemia, ncol=1) +
+  facet_wrap(. ~ leukemia, 
+             ncol = 1) +
   labs(title = "",
       x = "Genes",
       y = "Normalized expression") +
@@ -53,7 +58,7 @@ point_top10_split <- st_jude_top10 %>%
   theme_classic() +
   theme(axis.text.x = element_text(angle = 45, 
                                    hjust = 1),
-        plot.title = element_text(hjust=0.5),
+        plot.title = element_text(hjust = 0.5),
         legend.position = "bottom",
         legend.title = element_blank())
 
@@ -65,9 +70,9 @@ density_all <- st_jude_top40_long %>%
   labs(title = "Densitogram of top 40 genes for each leukemia type",
        x = "Expression",
        y = "Density") +
-  guides(color=guide_legend(title="Leukemia type")) +
+  guides(color = guide_legend(title = "Leukemia type")) +
   theme_classic() +
-  theme(plot.title=element_text(hjust=0.5))
+  theme(plot.title = element_text(hjust = 0.5))
 
 
 # Write data --------------------------------------------------------------
