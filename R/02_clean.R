@@ -26,8 +26,7 @@ genes_clean <- genes_clean %>%
          Gene_name = case_when(
            !is.na(Gene_name) ~ Gene_name,
            is.na(Gene_name) & !is.na(Descriptions) ~ Descriptions,
-           is.na(Gene_name) & is.na(Descriptions) ~ str_c("Probe ", Probe_set)),
-         Gene_name = str_replace_all(Gene_name, " ", "_")) %>%
+           is.na(Gene_name) & is.na(Descriptions) ~ str_c("Probe_", Probe_set))) %>%
   group_by(Gene_name) %>%
   mutate(count = n(),
         count = case_when(
@@ -36,10 +35,14 @@ genes_clean <- genes_clean %>%
            is.na(count) ~ Gene_name,
            !is.na(count) ~ str_c(Gene_name, "_", count, sep = ""))) %>%
   ungroup() %>%
-  select(-count)
-
-genes_clean <- genes_clean %>%
-  mutate(Gene_name = make.names(Gene_name))
+  select(-count, -Descriptions) %>%
+  pivot_wider(names_from = Gene_name, 
+              values_from = Probe_set) %>%
+  as_tibble(.name_repair = "universal") %>%
+  pivot_longer(cols = everything(),
+              names_to = "Gene_name",
+              values_to = "Probe_set") %>%
+  unnest(cols = Probe_set)
 
 
 # Clean x
