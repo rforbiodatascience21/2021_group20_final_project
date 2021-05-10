@@ -12,7 +12,7 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
-knitr::opts_knit$set(root.dir = '../')
+#knitr::opts_knit$set(root.dir = '../')
 library(tidyverse)
 ```
 
@@ -29,7 +29,7 @@ library(tidyverse)
 - Raw files:
   - raw_stjude_x.tsv.gz, a matrix of 12,625 rows (gene probes) and 327 columns (indivuals);
   - raw_stjude_xrows.tsv.gz with the names of the probes;
-  - raw_bcr.xls, a Excel spreadsheet from which we are interested in the first 2 columns giving the equivalence between the probe name and the gene name.
+  - raw_bcr.xls, an Excel spreadsheet from which we are interested in the first 2 columns giving the equivalence between the probe name and the gene name.
 
 
 - R with Tidyverse !
@@ -38,7 +38,7 @@ library(tidyverse)
 ## Methods
 ### Outline of the project
 ```{r outline, echo=FALSE, out.width="85%", fig.align = 'center'}
-knitr::include_graphics((normalizePath("doc/diagram.png")))
+knitr::include_graphics(path = "diagram.png")
 ```
 
 ## Methods
@@ -97,95 +97,95 @@ apply_t_test = function(data){
 ## Results
 ### Kmeans with all genes
 ```{r kmeanstableall, message=FALSE}
-kmeans_clusters_all <- read_tsv(file = "results/06_kmeans_table_all.tsv")
-kmeans_clusters_all %>% as_tibble()
+kmeans_clusters_all <- read_tsv(file = "../results/06_kmeans_table_all.tsv")
+kmeans_clusters_all %>% as_tibble
 ```
 
 ## Results
 ### Kmeans with all genes
 ```{r kmeansplotall, out.width="45%"}
-knitr::include_graphics((normalizePath("results/06_kmeans_barplot_all.png")))
+knitr::include_graphics(path = "../results/06_kmeans_barplot_all.png")
 ```
 
 
 ## Results
 ### Kmeans with top 40 genes
 ```{r kmeanstable40, eval=TRUE, message = FALSE}
-kmeans_clusters_top40 <- read_tsv(file = "results/06_kmeans_table_top40.tsv")
-kmeans_clusters_top40 %>% as_tibble()
+kmeans_clusters_top40 <- read_tsv(file = "../results/06_kmeans_table_top40.tsv")
+kmeans_clusters_top40 %>% as_tibble
 ```
 
 ## Results
 ### Kmeans with top 40 genes
 ```{r kmeansplot40, out.width="45%"}
-knitr::include_graphics((normalizePath("results/06_kmeans_barplot_top40.png")))
+knitr::include_graphics(path = "../results/06_kmeans_barplot_top40.png")
 ```
 
 
 ## Results
 ### PCA with all genes
 ```{r pcaprojectionall, out.width="60%"}
-knitr::include_graphics((normalizePath("results/07_pca_all.png")))
+knitr::include_graphics(path = "../results/07_pca_all.png")
 ```
 
 
 ## Results
 ### PCA with all genes
 ```{r pcavariancenall, out.width="60%"}
-knitr::include_graphics((normalizePath("results/07_pca_var_all.png")))
+knitr::include_graphics(path = "../results/07_pca_var_all.png")
 ```
 
 
 ## Results
 ### PCA with top 40 genes
 ```{r pcaprojectiontop, out.width="60%"}
-knitr::include_graphics((normalizePath("results/07_pca_top40.png")))
+knitr::include_graphics(path = "../results/07_pca_top40.png")
 ```
 
 
 ## Results
 ### PCA with top 40 genes
 ```{r pcavariancetop, out.width="60%"}
-knitr::include_graphics((normalizePath("results/07_pca_var_top40.png")))
+knitr::include_graphics(path = "../results/07_pca_var_top40.png")
 ```
 
 
 ## Results
 ### Heatmap
 ```{r heatmap1, out.width="95%"}
-knitr::include_graphics((normalizePath("results/05_heatmap_1_pos.png")))
+knitr::include_graphics(path = "../results/05_heatmap_1_pos.png")
 ```
 
 
 ## Results
 ### Heatmap
 ```{r heatmap2, out.width="95%"}
-knitr::include_graphics((normalizePath("results/05_heatmap_2_top10.png")))
+knitr::include_graphics(path = "../results/05_heatmap_2_top10.png")
 ```
 
 
 ## Results
 ### Heatmap
 ```{r heatmap3, out.width="95%"}
-knitr::include_graphics((normalizePath("results/05_heatmap_3_global_pos.png")))
+knitr::include_graphics(path = "../results/05_heatmap_3_global_pos.png")
 ```
 
 
 ## Results
 ### Heatmap
 ```{r heatmap4, out.width="95%"}
-knitr::include_graphics((normalizePath("results/05_heatmap_4_global_top10.png")))
+knitr::include_graphics(path = "../results/05_heatmap_4_global_top10.png")
 ```
 
 ## Results
 ### Heatmap from the paper
 ```{r heatmappaper, out.width="70%"}
-knitr::include_graphics((normalizePath("doc/paper_heatmap.png")))
+knitr::include_graphics(path = "paper_heatmap.png")
 ```
 
 ---
 ```{r shinyapp}
-knitr::include_app("https://paul-simon.shinyapps.io/yeoh_plots/")
+knitr::include_app(url = "https://paul-simon.shinyapps.io/yeoh_plots/")
 ```
 
 [Alternatively, the link](https://paul-simon.shinyapps.io/yeoh_plots/)
