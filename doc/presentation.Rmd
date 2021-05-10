@@ -23,8 +23,16 @@ library(tidyverse)
 - The goal of the project is to **assess whether there is a link between gene expression and the type of ALL**.
 
 
-## Introduction
-- Leukemia types
+## Introduction | Leukemia types
+
+* B lineage leukemias containing:
+  + t(9;22)[BCR-ABL] -- *"BCR”*
+  + t(1;19)[E2A-PBX1] -- *“E2A”*
+  + t(12;21)[TEL-AML1] -- *“TEL”*
+  + Rearrangements in MLL gene on chromosome 11, band q23 -- *“MLL”*
+  + Hyperdiploid karyotime -- *“Hyperdip”*
+* T lineage leukemia:
+  + T-ALL -- *“T”*
 
 
 ## Materials
@@ -238,4 +246,3 @@ knitr::include_app(url = "https://paul-simon.shinyapps.io/yeoh_plots/")
 - The PCA and Kmeans separated the types slightly better when the top 40 genes of each type were selected.
 - This demonstrates that the genes selected were representative of their type.
 - By genotyping a patient, it can be possible to to know which type of cancer he/she has and adapt the treatment.
-- In the paper, the results of the microarray are compared to RNA levels from RT-PCR and they show that there is high correlation between the two.
