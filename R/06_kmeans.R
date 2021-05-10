@@ -9,51 +9,55 @@ library("ggplot2")
 
 
 # Load data ---------------------------------------------------------------
-top_40_genes <- read_tsv(file = "./data/03_stjude_downsized.tsv.gz")
-all_genes <- read_tsv(file = "./data/02_stjude_clean.tsv.gz")
+st_jude_top40 <- read_tsv(file = "./data/03_stjude_top40.tsv.gz")
+st_jude_all <- read_tsv(file = "./data/02_stjude_clean.tsv.gz")
 
 
 # Model data --------------------------------------------------------------
 set.seed(20)
-kclust_top40 <- top_40_genes %>%
-  as_tibble() %>% 
+kclust_top40 <- st_jude_top40 %>%
   select(c(-sampleID, -leukemia)) %>% 
   kmeans(centers = 6)
 
 clusters_top40 <- kclust_top40 %>% 
-  augment(top_40_genes) %>% 
+  augment(st_jude_top40) %>% 
   select(.cluster, leukemia) %>% 
   group_by(.cluster, leukemia) %>% 
-  count()
+  count
 
 set.seed(20)
-kclust_all <- all_genes %>%
-  as_tibble() %>% 
+kclust_all <- st_jude_all %>%
   select(c(-sampleID, -leukemia)) %>% 
   kmeans(centers = 6)
 
 clusters_all <- kclust_all %>% 
-  augment(top_40_genes) %>% 
+  augment(st_jude_all) %>% 
   select(.cluster, leukemia) %>% 
   group_by(.cluster, leukemia) %>% 
-  count()
+  count
 
 
 # Plot models -------------------------------------------------------------
-clusters_top40_plot <- clusters_top40 %>% 
+kmeans_top40 <- clusters_top40 %>% 
   ggplot(aes(.cluster, n, fill = leukemia)) +
   geom_bar(stat = "identity") +
   labs(x = 'cluster', y = 'count')
 
-clusters_all_plot <- clusters_all %>% 
+kmeans_all <- clusters_all %>% 
   ggplot(aes(.cluster, n, fill = leukemia)) +
   geom_bar(stat = "identity") +
   labs(x = 'cluster', y = 'count')
  
 
-# Save plots --------------------------------------------------------------
-ggsave(plot = clusters_top40_plot,
-       filename = "results/06_top40_clusters.png")
+# Save plots and tables ---------------------------------------------------
+ggsave(plot = kmeans_top40,
+       filename = "results/06_kmeans_barplot_top40.png")
 
-ggsave(plot = clusters_all_plot,
-       filename = "results/06_all_clusters.png")
+write_tsv(x = clusters_top40, 
+          file = "results/06_kmeans_table_top40.tsv")
+
+ggsave(plot = kmeans_all,
+       filename = "results/06_kmeans_barplot_all.png")
+
+write_tsv(x = clusters_all, 
+          file = "results/06_kmeans_table_all.tsv")

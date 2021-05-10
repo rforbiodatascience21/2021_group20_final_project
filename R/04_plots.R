@@ -48,20 +48,19 @@ point_top10_split <- st_jude_top10 %>%
   labs(title = "",
       x = "Genes",
       y = "Normalized expression") +
-  scale_color_manual(name = "",
-                     values = c("blue", "yellow"),
+  scale_color_manual(values = c("blue", "yellow"),
                      labels = c("Expression < 0", "Expression > 0")) +
   theme_classic() +
   theme(axis.text.x = element_text(angle = 45, 
                                    hjust = 1),
         plot.title = element_text(hjust=0.5),
-        legend.position = "bottom")
-point_top10_split
+        legend.position = "bottom",
+        legend.title = element_blank())
 
 
 density_all <- st_jude_top40_long %>% 
   ggplot(mapping = aes(x = expression, 
-                       fill() = leukemia)) +
+                       color = leukemia)) +
   geom_density() +
   labs(title = "Densitogram of top 40 genes for each leukemia type",
        x = "Expression",

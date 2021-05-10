@@ -14,14 +14,15 @@ st_jude_top40 <- read_tsv(file = "./data/03_stjude_top40.tsv.gz")
 st_jude_all <- read_tsv(file = "./data/02_stjude_clean.tsv.gz")
 
 
-# Model data --------------------------------------------------------------
+# Model and plot data -----------------------------------------------------
+# Top 40 genes
 pca_fit_top40 <- st_jude_top40 %>% 
   select(where(is.numeric)) %>%
   scale %>% 
   prcomp
 
 pca_plot_top40 <- pca_fit_top40 %>%
-  augment(stjude_top40) %>% 
+  augment(st_jude_top40) %>% 
   ggplot(mapping = aes(x = .fittedPC1, 
                        y = .fittedPC2, 
                        color = leukemia, 
@@ -29,8 +30,9 @@ pca_plot_top40 <- pca_fit_top40 %>%
   geom_point() +
   labs(x = 'PC1',
        y = 'PC2',
-       title = 'PCA of top 40 genes of each leukemia') +
-  guides(color=guide_legend(title="Leukemia type")) +
+       title = 'PCA of top 40 genes',
+       color = 'Leukemia type',
+       shape = 'Leukemia type') +
   theme_classic()
 
 var_plot_top40 <- pca_fit_top40 %>%
@@ -39,19 +41,20 @@ var_plot_top40 <- pca_fit_top40 %>%
   ggplot(mapping = aes(x = PC, y = percent)) +
   geom_col(fill = "aquamarine3", alpha = 0.8) +
   scale_x_continuous(breaks = 1:10) +
-  scale_y_continuous(labels = percent_format()) +
-  labs(title = 'Variance explained by the first 10 PC'.
-       subtitle = 'Top 40 genes of each leukemia') +
+  scale_y_continuous(labels = percent_format(accuracy = 1L)) +
+  labs(title = 'Variance explained by the first 10 PC (top 40 genes)',
+       y = 'Variance explained') +
   theme_classic()
 
 
-pca_fit_top40 <- genes_top40 %>% 
+# All genes
+pca_fit_all <- st_jude_all %>% 
   select(where(is.numeric)) %>%
   scale %>% 
   prcomp
 
-pca_plot_top40 <- pca_fit_top40 %>%
-  augment(genes_top40) %>% 
+pca_plot_all <- pca_fit_all %>%
+  augment(st_jude_all) %>% 
   ggplot(mapping = aes(x = .fittedPC1, 
                        y = .fittedPC2, 
                        color = leukemia, 
@@ -59,30 +62,36 @@ pca_plot_top40 <- pca_fit_top40 %>%
   geom_point() +
   labs(x = 'PC1',
        y = 'PC2',
-       title = 'PCA of top 40 genes of each leukemia') +
+       title = 'PCA of all genes',
+       color = 'Leukemia type',
+       shape = 'Leukemia type') +
   theme_classic()
 
-variance_top40 <- pca_fit_top40 %>%
+pca_plot_all
+
+var_plot_all <- pca_fit_all %>%
   tidy(matrix = "eigenvalues") %>%
   filter(PC < 11) %>%
   ggplot(mapping = aes(x = PC, y = percent)) +
   geom_col(fill = "aquamarine3", alpha = 0.8) +
   scale_x_continuous(breaks = 1:10) +
-  scale_y_continuous(labels = percent_format()) +
-  labs(title = 'Variance explained by the first 10 PC (Top 40 genes)') +
+  scale_y_continuous(labels = percent_format(accuracy = 1L)) +
+  labs(title = 'Variance explained by the first 10 PC (all genes)',
+       y = 'Variance explained') +
   theme_classic()
+
+var_plot_all
 
 
 # Save plots --------------------------------------------------------------
+ggsave(plot = pca_plot_top40,
+       filename = "results/07_pca_top40.png")
 
-ggsave(plot = top40_projection,
-       filename = "results/07_top40_projection.png")
+ggsave(plot = var_plot_top40,
+       filename = "results/07_pca_var_top40.png")
 
-ggsave(plot = top40_variance,
-       filename = "results/07_top40_variance.png")
+ggsave(plot = pca_plot_all,
+       filename = "results/07_pca_all.png")
 
-ggsave(plot = all_projection,
-       filename = "results/07_all_projection.png")
-
-ggsave(plot = all_variance,
-       filename = "results/07_all_variance.png")
+ggsave(plot = var_plot_all,
+       filename = "results/07_pca_var_all.png")
