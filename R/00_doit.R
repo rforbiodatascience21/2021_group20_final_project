@@ -7,5 +7,8 @@ source(file = "R/05_plots_heatmap.R")
 source(file = "R/06_kmeans.R")
 source(file = "R/07_pca.R")
 source(file = "R/08_regression.R")
+
+
+# Knit the presentation ---------------------------------------------------
 rmarkdown::render(input = "doc/presentation.Rmd", 
                   output_dir = "doc/")

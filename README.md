@@ -35,7 +35,12 @@ each cancer subtype
 5\. 05\_plots\_heatmap aims at reproducing heatmaps from the paper  
 6\. 06\_kmeans performs a k means clustering on raw dataset and top40
 genes dataset  
-7\. 07\_pca performs a PCA on raw dataset and top40 genes dataset
+7\. 07\_pca performs a PCA on raw dataset and top40 genes dataset  
+8\. 08\_regression.R performs a simple multinomial regression
 
 A shiny app with plots has been created and is available
-[here](https://paul-simon.shinyapps.io/yeoh_plots/)
+[here](https://paul-simon.shinyapps.io/yeoh_plots/).
+
+# Presentation
+
+The final presentation can be found under doc/presentation.html

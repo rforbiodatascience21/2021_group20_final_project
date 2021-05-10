@@ -8,7 +8,7 @@ library("ggplot2")
 library("caret")
 library("nnet")
 library("broom")
-
+set.seed(0)
 
 # Load data ---------------------------------------------------------------
 st_jude_top40 <- read_tsv(file = "./data/03_stjude_top40.tsv.gz")

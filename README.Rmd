@@ -24,5 +24,9 @@ All R scripts are available in the folder R/
 5. 05_plots_heatmap aims at reproducing heatmaps from the paper  
 6. 06_kmeans performs a k means clustering on raw dataset and top40 genes dataset  
 7. 07_pca performs a PCA on raw dataset and top40 genes dataset  
+8. 08_regression.R performs a simple multinomial regression
 
-A shiny app with plots has been created and is available [here](https://paul-simon.shinyapps.io/yeoh_plots/)
+A shiny app with plots has been created and is available [here](https://paul-simon.shinyapps.io/yeoh_plots/).
+
+# Presentation
+The final presentation can be found under doc/presentation.html
