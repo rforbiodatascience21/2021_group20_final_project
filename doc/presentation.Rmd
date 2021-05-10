@@ -144,7 +144,7 @@ apply_t_test = function(data){
   return(my_list)
 }
 ```
-- Paul will add something here
+- It is used to select the top 40 and top 10 most differentially expressed genes for each leukemia subtype.
 
 
 ## Results | Kmeans (all genes)
