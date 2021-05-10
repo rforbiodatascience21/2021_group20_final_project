@@ -39,6 +39,63 @@ library(tidyverse)
 knitr::include_graphics(path = "diagram.png")
 ```
 
+## Methods | Tidying data
+- raw_stjude_x.tsv
+```{r echo=TRUE, eval=FALSE}
+# A tibble: 12,625 x 327
+   `BCR-ABL-#1` `BCR-ABL-#2` `BCR-ABL-#3` `BCR-ABL-#4` `BCR-ABL-#5` `BCR-ABL-#6` `BCR-ABL-#7` `BCR-ABL-#8`
+          <dbl>        <dbl>        <dbl>        <dbl>        <dbl>        <dbl>        <dbl>        <dbl>
+ 1        1.45         1.34         1.49         1.47         1.49         1.45         1.46         1.51 
+ 2        0.984        1.09         1.10         0.975        0.933        0.968        0.887        0.983
+ 3        0.892        0.897        0.807        0.969        0.797        0.979        0.919        0.902
+ 4        1.23         1.28         1.16         1.29         1.18         1.20         1.21         1.24 
+ 5        1.20         1.12         1.12         1.17         1.11         1.10         1.11         1.06 
+```
+
+
+## Methods | Tidying data
+- raw_stjude_xrows.tsv
+```{r echo=TRUE, eval=FALSE}
+# A tibble: 12,625 x 1
+   value    
+   <chr>    
+ 1 1000_at  
+ 2 1001_at  
+ 3 1002_f_at
+ 4 1003_s_at
+ 5 1004_at  
+```
+
+
+## Methods | Tidying data
+- raw_bcr.xls
+```{r echo=TRUE, eval=FALSE}
+# A tibble: 12,626 x 32
+   `Probe set` Descriptions `BCR-ABL-C1...3` `BCR-ABL-C1...4` `BCR-ABL-R1...5` `BCR-ABL-R1...6` `BCR-ABL-R2...7`
+   <chr>       <chr>        <chr>            <chr>            <chr>            <chr>            <chr>           
+ 1 NA          NA           Avg Diff         Abs Call         Avg Diff         Abs Call         Avg Diff        
+ 2 AFFX-MurIL~ M16762 Mous~ -2597.800000000~ A                175.69999999999~ A                1249.2          
+ 3 AFFX-MurIL~ M37897 Mous~ -404.1000000000~ A                -512.5           A                -57.60000000000~
+ 4 AFFX-MurIL~ M25892 Mus ~ 2143.3000000000~ A                737.70000000000~ A                -941.1000000000~
+ 5 AFFX-MurFA~ M83649 Mus ~ -1697.7          A                1082.3           P                -276.5          
+```
+
+
+## Methods | Tidying data
+- 02_stjude_clean.tsv.gz
+```{r echo=TRUE, eval=FALSE}
+# A tibble: 248 x 12,627
+   sampleID leukemia Y08200_2 X60188 X60957 X65962 X68149_1 X68149_2 X68277 X07820 U48705 U50648 U51004 Y09305
+   <chr>    <chr>       <dbl>  <dbl>  <dbl>  <dbl>    <dbl>    <dbl>  <dbl>  <dbl>  <dbl>  <dbl>  <dbl>  <dbl>
+ 1 s_1      BCR          1.51   1.45  0.984  0.892     1.23     1.20   1.67  0.870   1.25   2.48   2.39  1.20 
+ 2 s_2      BCR          1.54   1.34  1.09   0.897     1.28     1.12   1.87  0.910   1.67   2.35   2.09  1.16 
+ 3 s_3      BCR          1.60   1.49  1.10   0.807     1.16     1.12   2.63  0.866   1.51   2.20   2.47  1.23 
+ 4 s_4      BCR          1.64   1.47  0.975  0.969     1.29     1.17   2.50  0.910   1.69   2.72   2.26  0.959
+ 5 s_5      BCR          1.70   1.49  0.933  0.797     1.18     1.11   1.65  0.869   1.63   2.78   1.88  1.08 
+```
+
+
+
 ## Methods
 - A regular expression to extract the gene name from the Excel column 
 ```{r regexp, echo=TRUE, eval=FALSE}
