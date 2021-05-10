@@ -31,7 +31,9 @@ ui <- fluidPage(theme = shinytheme("flatly"),
                   # Show a plot of the generated distribution
                   mainPanel(
                     plotOutput("genePlot"),
-                    p("Yeoh et al. (2002) acquired the diagnostic bone marrow samples from 248 pediatric acute lymphoblastic leukemia (ALL) patients who were determined to have one and only one of the six known pediatric ALL prognostic subtypes, which include T-cell lineage ALL (T-ALL), E2A-PBX1, TEL-AML1, MLL rearrangements, BCR-ABL, and hyperdiploid karyotypes with more than 50 chromosomes (HK50). The 248 patients included 43 T-ALL, 27 E2A-PBX1, 79 TEL-AML1, 15 BCR-ABL, 20 MLL, and 64 HK50 patients.")
+                    p("Yeoh et al. (2002) acquired the diagnostic bone marrow 
+                      samples from 248 pediatric acute lymphoblastic leukemia
+                      (ALL) patients.")
                   ))
 )
 

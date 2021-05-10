@@ -83,7 +83,7 @@ p2 <- st_jude_top_10 %>%
 
 heatmap_1 <- p1+p2 + 
    plot_annotation(title = "Top positively correlated genes with each individual leukemia class",
-                   theme = theme(plot.title = element_text(hjust = 0.3)))
+                   theme = theme(plot.title = element_text(hjust = 0.5)))
    
 
 
@@ -191,7 +191,7 @@ p2b <- st_jude_top_10 %>%
 
 heatmap_2<- p1b+p2b +
    plot_annotation(title = "Top 10 most correlated genes with each individual leukemia class",
-                                    theme = theme(plot.title = element_text(hjust = 0.3)))
+                                    theme = theme(plot.title = element_text(hjust = 0.5)))
 
 
 heatmap_3b <- st_jude_top_10 %>% 
