@@ -23,6 +23,10 @@ library(tidyverse)
 - The goal of the project is to **assess whether there is a link between gene expression and the type of ALL**.
 
 
+## Introduction
+- Leukemia types
+
+
 ## Materials
 
 - Raw files:
@@ -39,7 +43,7 @@ library(tidyverse)
 knitr::include_graphics(path = "diagram.png")
 ```
 
-## Methods | Tidying data
+## Methods | From raw data ...
 - raw_stjude_x.tsv
 ```{r echo=TRUE, eval=FALSE}
 # A tibble: 12,625 x 327
@@ -53,7 +57,7 @@ knitr::include_graphics(path = "diagram.png")
 ```
 
 
-## Methods | Tidying data
+## Methods | From raw data ...
 - raw_stjude_xrows.tsv
 ```{r echo=TRUE, eval=FALSE}
 # A tibble: 12,625 x 1
@@ -67,7 +71,7 @@ knitr::include_graphics(path = "diagram.png")
 ```
 
 
-## Methods | Tidying data
+## Methods | From raw data ...
 - raw_bcr.xls
 ```{r echo=TRUE, eval=FALSE}
 # A tibble: 12,626 x 32
@@ -81,7 +85,7 @@ knitr::include_graphics(path = "diagram.png")
 ```
 
 
-## Methods | Tidying data
+## Methods | ... to tidy data
 - 02_stjude_clean.tsv.gz
 ```{r echo=TRUE, eval=FALSE}
 # A tibble: 248 x 12,627
@@ -140,58 +144,52 @@ apply_t_test = function(data){
   return(my_list)
 }
 ```
+- Paul will add something here
 
 
-## Methods
-- The ggplot2 package to create different plot for the dataset
-```{r plots, echo=TRUE, eval=FALSE}
-# Example of plot
-```
-
-
-## Results | Kmeans with all genes
+## Results | Kmeans (all genes)
 ```{r kmeanstableall, message=FALSE}
 kmeans_clusters_all <- read_tsv(file = "../results/06_kmeans_table_all.tsv")
 kmeans_clusters_all %>% as_tibble
 ```
 
-## Results | Kmeans with all genes
+## Results | Kmeans (all genes)
 ```{r kmeansplotall, out.width="60%", fig.align ='center'}
 knitr::include_graphics(path = "../results/06_kmeans_barplot_all.png")
 ```
 
 
-## Results | Kmeans with top 40 genes 
+## Results | Kmeans (top 40 genes)
 ```{r kmeanstable40, eval=TRUE, message = FALSE}
 kmeans_clusters_top40 <- read_tsv(file = "../results/06_kmeans_table_top40.tsv")
 kmeans_clusters_top40 %>% as_tibble
 ```
 
-## Results | Kmeans with top 40 genes
+## Results | Kmeans (top 40 genes)
 ```{r kmeansplot40, out.width="60%", fig.align ='center'}
 knitr::include_graphics(path = "../results/06_kmeans_barplot_top40.png")
 ```
 
 
-## Results | PCA with all genes
+## Results | PCA
 ```{r pcaprojectionall, out.width="60%", fig.align ='center'}
 knitr::include_graphics(path = "../results/07_pca_all.png")
 ```
 
 
-## Results | PCA with all genes
+## Results | PCA
 ```{r pcavariancenall, out.width="60%", fig.align ='center'}
 knitr::include_graphics(path = "../results/07_pca_var_all.png")
 ```
 
 
-## Results | PCA with top 40 genes
+## Results | PCA
 ```{r pcaprojectiontop, out.width="60%", fig.align ='center'}
 knitr::include_graphics(path = "../results/07_pca_top40.png")
 ```
 
 
-## Results | PCA with top 40 genes
+## Results | PCA
 ```{r pcavariancetop, out.width="60%", fig.align ='center'}
 knitr::include_graphics(path = "../results/07_pca_var_top40.png")
 ```
@@ -235,6 +233,9 @@ knitr::include_app(url = "https://paul-simon.shinyapps.io/yeoh_plots/")
 
 
 ## Discussion
-- The t-test is a good statistical test to seek for upregulated or downregulated genes in each type of leukemia.
+- Tidying the data from raw was successful.
+- T-test was used to select the top 40 most differentialy expressed genes.
+- The PCA and Kmeans separated the types slightly better when the top 40 genes of each type were selected.
+- This demonstrates that the genes selected were representative of their type.
 - By genotyping a patient, it can be possible to to know which type of cancer he/she has and adapt the treatment.
 - In the paper, the results of the microarray are compared to RNA levels from RT-PCR and they show that there is high correlation between the two.
