@@ -83,7 +83,6 @@ info.gain <- function(partition.by, categories){
   
   # Calculate information gain as 
   # original entropy of categories - weighted average of entropy partitioned data
-  #info.gain <- entropy(categories) - sum(ent * (row.sums / sum(row.sums)))
   info.gain <- entropy %>% 
     '-'(ent)
   
