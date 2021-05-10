@@ -12,13 +12,13 @@ library("patchwork")
 
 
 # Load data ---------------------------------------------------------------
-st_jude_top_10 <- read_tsv(file = "data/03_st_jude_top_10.tsv.gz")
+st_jude_top10 <- read_tsv(file = "data/03_st_jude_top10.tsv.gz")
 
 
 # Wrangle data ------------------------------------------------------------
 ## Plots for positively-correlated genes
 
-p1 <- st_jude_top_10 %>% 
+p1 <- st_jude_top10 %>% 
    filter(leukemia %in% c("E2A", "MLL", "TEL"), 
           rank %in% c("E2A_top10", "MLL_top10", "TEL_top10")) %>%
    ggplot(mapping = aes(x = sampleID,
@@ -53,7 +53,7 @@ p1 <- st_jude_top_10 %>%
 
 
 
-p2 <- st_jude_top_10 %>% 
+p2 <- st_jude_top10 %>% 
    filter(leukemia %in% c("BCR", "Hyperdip", "T"), 
           rank %in% c("BCR_top10", "Hyperdip_top10", "T_top10"))%>%
    ggplot(mapping = aes(x = sampleID,
@@ -88,7 +88,7 @@ heatmap_1 <- p1+p2 +
 
 
 
-heatmap_3 <- st_jude_top_10 %>%   
+heatmap_3 <- st_jude_top10 %>%   
    filter(str_detect(rank, "top10"))%>%
    ggplot(mapping = aes(x = sampleID,
                         y = fct_reorder2(gene, 
@@ -129,7 +129,7 @@ heatmap_3 <- st_jude_top_10 %>%
 
 ## Plots for all top 10 genes
 
-p1b <- st_jude_top_10 %>% 
+p1b <- st_jude_top10 %>% 
    filter(leukemia %in% c("E2A", "MLL", "TEL"), 
           str_detect(rank, "E2A|MLL|TEL"))%>%
    ggplot(mapping = aes(x = sampleID,
@@ -161,7 +161,7 @@ p1b <- st_jude_top_10 %>%
                                 title.hjust = 0.5))
 
 
-p2b <- st_jude_top_10 %>% 
+p2b <- st_jude_top10 %>% 
    filter(leukemia %in% c("BCR", "Hyperdip", "T"), 
           str_detect(rank, "BCR|Hyperdip|_T|T_"))%>%
    ggplot(mapping = aes(x = sampleID,
@@ -194,7 +194,7 @@ heatmap_2<- p1b+p2b +
                                     theme = theme(plot.title = element_text(hjust = 0.5)))
 
 
-heatmap_3b <- st_jude_top_10 %>% 
+heatmap_3b <- st_jude_top10 %>% 
    ggplot(mapping = aes(x = sampleID,
                         y = fct_reorder2(gene, 
                                          (expr_level), 
