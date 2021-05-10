@@ -7,6 +7,7 @@ output:
     logo: dtu.png
     df_print: tibble
     widescreen: true
+    smaller: true
 ---
 
 ```{r setup, include=FALSE}
@@ -102,11 +103,14 @@ clusters_top40
 
 ## Results
 ```{r, echo=FALSE, out.width="70%", error=TRUE, eval=TRUE, fig.cap = "Heat map for the 10 most upregulated genes"}
-knitr::include_graphics(path = str_c(getwd(),"/results/05_heatmap_1_pos.png"))
+knitr::include_graphics((normalizePath("results/05_heatmap_1_pos.png")))
 ```
 
-## Results
-### Shiny app
+---
+```{r, echo = FALSE, eval = TRUE}
+knitr::include_app("https://paul-simon.shinyapps.io/yeoh_plots/", height = "10000px")
+```
+
 [Link](https://paul-simon.shinyapps.io/yeoh_plots/)
 
 ## Discussion

@@ -83,8 +83,12 @@ st_jude_top_10 <- st_jude_scaled %>%
             by = c("gene"))
 
 # Write data --------------------------------------------------------------
+
 write_tsv(x = st_jude_downsized,
-          file = "data/03_stjude_downsized.tsv.gz")
+          file = "/03_stjude_downsized.tsv.gz")
+
+write_tsv(x = st_jude_downsized,
+          file = "shiny_final/data/03_stjude_downsized.tsv.gz")
 
 write_tsv(x = top_40_genes,
           file = "data/03_top_40_genes.tsv.gz")
